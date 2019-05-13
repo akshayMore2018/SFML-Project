@@ -34,13 +34,14 @@ void Game::event()
 {
 	while (m_Window.pollEvent(m_Event))
 	{
-		if (m_Event.type == Event::Closed)
+		switch (m_Event.type)
 		{
+		case Event::Closed:
 			m_Window.close();
-		}
-		else
-		{
-			obj->events();
+			break;
+		default:
+			obj->events(m_Event);
+			break;
 		}
 	}
 }

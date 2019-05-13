@@ -11,12 +11,12 @@ public:
 	virtual ~Entity();
 
 	virtual void update();
-	void events();
+	virtual void events(const Event& event);
 	void clear();
 
 	Sprite sprite;
 	Texture texture;
-	Vec2 *position;
-	Vec2 *velocity;
-
+	Vec2 position;
+	Vec2 velocity;
+	Vec2 size;
 };

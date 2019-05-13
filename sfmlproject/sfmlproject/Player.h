@@ -8,4 +8,5 @@ public:
 	Player();
 	 ~Player();
 	void update();
+	void events(const Event& event);
 };

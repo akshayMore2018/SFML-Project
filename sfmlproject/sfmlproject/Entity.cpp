@@ -17,7 +17,7 @@ void Entity::update()
 }
 
 
-void Entity::events()
+void Entity::events(const Event& event)
 {
 }
 

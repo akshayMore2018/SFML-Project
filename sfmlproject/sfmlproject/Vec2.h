@@ -5,5 +5,4 @@ public:
 	float x, y;
 	Vec2();
 	Vec2(float a, float b);
-	~Vec2();
 };
