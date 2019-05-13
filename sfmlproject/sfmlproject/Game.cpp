@@ -6,6 +6,14 @@ Game::Game(const std::string name, unsigned int height, unsigned int width)
 	
 	m_Window.create(VideoMode(width, height), name);
 	m_Window.setFramerateLimit(60);
+	if (!background.loadFromFile("Assets/space"))
+	{
+		std::cout << "Could not load asset";
+	}
+	else
+	{
+		bg.setTexture(background);
+	}
 	obj = new Player();
 }
 
@@ -24,7 +32,7 @@ void Game::render()
 {
 
 	m_Window.clear(Color(0, 0, 0, 255));
-
+	m_Window.draw(bg);
 	m_Window.draw(obj->sprite);
 
 	m_Window.display();
