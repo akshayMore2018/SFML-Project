@@ -28,7 +28,6 @@ Player::~Player()
 
 void Player::update()
 {
-
 	velocity += acceleration;
 
 	if (velocity > 3)
