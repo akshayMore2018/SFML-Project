@@ -17,6 +17,7 @@ public:
 	Sprite sprite;
 	Texture texture;
 	Vec2 position;
-	Vec2 velocity;
 	Vec2 size;
+	float acceleration;
+	float velocity;
 };
