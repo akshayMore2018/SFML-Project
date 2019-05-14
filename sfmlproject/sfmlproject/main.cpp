@@ -4,7 +4,7 @@
 int main()
 {
 	{
-		Game game("nightmare", 480, 640);
+		Game game("nightmare", 720, 915);
 
 		while (game.isRunning())
 		{

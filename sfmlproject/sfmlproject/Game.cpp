@@ -2,11 +2,10 @@
 #include "Player.h"
 
 Game::Game(const std::string name, unsigned int height, unsigned int width)
-{
-	
+{	
 	m_Window.create(VideoMode(width, height), name);
 	m_Window.setFramerateLimit(60);
-	if (!background.loadFromFile("Assets/space"))
+	if (!background.loadFromFile("Assets/space.jpg"))
 	{
 		std::cout << "Could not load asset";
 	}

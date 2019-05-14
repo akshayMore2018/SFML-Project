@@ -2,8 +2,8 @@
 #include "SFML/Graphics.hpp"
 #include "Vec2.h"
 using namespace sf;
-const static int SCREEN_WIDTH = 640;
-const static int SCREEN_HEIGHT = 480;
+const static int SCREEN_WIDTH = 915;
+const static int SCREEN_HEIGHT = 720;
 class Entity
 {
 public:

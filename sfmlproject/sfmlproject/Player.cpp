@@ -4,19 +4,23 @@
 
 Player::Player()
 {
-	if (!texture.loadFromFile("Assets/casper.png"))
+	if (!texture.loadFromFile("Assets/player.png"))
 	{
 		std::cout << "Could not load asset";
 	}
 	else
 	{
+		texture.setSmooth(true);
 		sprite.setTexture(texture);
 		position =  Vec2(SCREEN_WIDTH/2, SCREEN_HEIGHT/2);
 		size = Vec2(texture.getSize().x, texture.getSize().y);
 		sprite.setOrigin(size.x/2, size.y/2);
 		sprite.setPosition(position.x,position.y);
+		sprite.setScale(0.6f, 0.6f);
 		velocity = 0;
 		acceleration = 0;
+		angle = 0;
+		
 	}
 
 }
@@ -43,6 +47,7 @@ void Player::update()
 	position.y = position.y + sin((sprite.getRotation()-90)*0.017453f) * velocity;
 
 	sprite.setPosition(position.x, position.y);
+	sprite.setRotation(angle);
 }
 
 void Player::events(const Event& event)
@@ -53,12 +58,12 @@ void Player::events(const Event& event)
 
 		if (event.key.code == Keyboard::Left)
 		{
-			sprite.setRotation(sprite.getRotation() - 5);
+			angle += -3;
 		}
 
 		if (event.key.code == Keyboard::Right)
 		{
-			sprite.setRotation(sprite.getRotation() + 5);
+			angle += 3;
 		}
 
 		if (event.key.code == Keyboard::Up)
