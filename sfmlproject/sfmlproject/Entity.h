@@ -21,4 +21,5 @@ public:
 	Vec2 size;
 	float acceleration;
 	float velocity;
+	float rotation;
 };

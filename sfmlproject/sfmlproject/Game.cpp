@@ -8,8 +8,9 @@ Game::Game(const std::string name, unsigned int height, unsigned int width)
 
 	TextureManager::getInstance()->load("bg","Assets/space.jpg");
 	TextureManager::getInstance()->load("ship","Assets/player.png");
+	TextureManager::getInstance()->load("bullet", "Assets/laserGreen.png");
 	bg.setTexture(TextureManager::getInstance()->textureMap["bg"]);
-	obj = new Player();
+	player = new Player();
 }
 
 Game::~Game()
@@ -20,7 +21,9 @@ Game::~Game()
 
 void Game::update()
 {
-	obj->update();
+	if (bullet)
+		bullet->update();
+	player->update();
 }
 
 void Game::render()
@@ -28,7 +31,9 @@ void Game::render()
 
 	m_Window.clear(Color(0, 0, 0, 255));
 	m_Window.draw(bg);
-	m_Window.draw(obj->sprite);
+	if (bullet)
+		m_Window.draw(bullet->sprite);
+	m_Window.draw(player->sprite);
 
 	m_Window.display();
 }
@@ -43,7 +48,11 @@ void Game::event()
 			m_Window.close();
 			break;
 		default:
-			obj->events(m_Event);
+			if (Keyboard::isKeyPressed(Keyboard::Space))
+			{
+				bullet = new Bullet(player->position,player->rotation);
+			}
+			player->events(m_Event);
 			break;
 		}
 	}
@@ -51,6 +60,6 @@ void Game::event()
 
 void Game::clear()
 {
-	delete obj;
+	delete player;
 }
 

@@ -11,5 +11,4 @@ public:
 	void events(const Event& event);
 
 	float angle;
-	float rotation;
 };

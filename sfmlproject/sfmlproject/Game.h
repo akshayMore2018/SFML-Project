@@ -2,6 +2,7 @@
 #include <iostream>
 #include "SFML/Graphics.hpp"
 #include "Entity.h"
+#include "Bullet.h";
 using namespace sf;
 
 class Game
@@ -20,9 +21,9 @@ public:
 private:
 	RenderWindow m_Window;
 	Event m_Event;
-	Entity* obj = nullptr;
+	Entity* player = nullptr;
 	Sprite bg;
-
+	Bullet* bullet = nullptr;
 };
 
 inline bool Game::isRunning()
