@@ -22,4 +22,5 @@ public:
 	float acceleration;
 	float velocity;
 	float rotation;
+	bool remove;
 };

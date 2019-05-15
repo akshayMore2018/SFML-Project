@@ -8,6 +8,7 @@ Bullet::Bullet(Vec2 pos, float rot)
 	position.y = pos.y;
 	velocity = 9.0f;
 	rotation = rot;
+	remove = false;
 	
 }
 
@@ -17,6 +18,14 @@ Bullet::~Bullet()
 
 void Bullet::update()
 {
+	if (remove)
+		return;
+
+	if (position.x > SCREEN_WIDTH || position.x < 0 || position.y>SCREEN_HEIGHT || position.y<0)
+	{
+		remove = true;
+	}
+
 	position.x = position.x + cos((rotation)*0.017453f) * velocity;
 	position.y = position.y + sin((rotation)*0.017453f) * velocity;
 

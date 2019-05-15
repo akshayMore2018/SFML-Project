@@ -21,8 +21,26 @@ Game::~Game()
 
 void Game::update()
 {
-	if (bullet)
-		bullet->update();
+	if (bulletList.size() != 0)
+	{
+		for (auto i = bulletList.begin(); i != bulletList.end();)
+		{
+
+			(*i)->update();
+			if ((*i)->remove)
+			{
+				std::cout << bulletList.size() << std::endl;
+				delete (*i);
+				i=bulletList.erase(i);
+			}
+			else
+			{
+				i++;
+			}
+
+		}
+	}
+
 	player->update();
 }
 
@@ -31,8 +49,14 @@ void Game::render()
 
 	m_Window.clear(Color(0, 0, 0, 255));
 	m_Window.draw(bg);
-	if (bullet)
-		m_Window.draw(bullet->sprite);
+	if (bulletList.size() != 0)
+	{
+		for (auto i = bulletList.begin(); i != bulletList.end(); i++)
+		{
+			if(!((*i)->remove))
+			m_Window.draw((*i)->sprite);
+		}
+	}
 	m_Window.draw(player->sprite);
 
 	m_Window.display();
@@ -50,7 +74,7 @@ void Game::event()
 		default:
 			if (Keyboard::isKeyPressed(Keyboard::LAlt))
 			{
-				bullet = new Bullet(player->position,player->rotation);
+				bulletList.push_back(new Bullet(player->position,player->rotation));
 			}
 			player->events(m_Event);
 			break;

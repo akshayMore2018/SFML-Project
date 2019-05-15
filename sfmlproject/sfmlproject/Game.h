@@ -24,6 +24,7 @@ private:
 	Entity* player = nullptr;
 	Sprite bg;
 	Bullet* bullet = nullptr;
+	std::vector<Bullet*> bulletList;
 };
 
 inline bool Game::isRunning()
