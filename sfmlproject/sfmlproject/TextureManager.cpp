@@ -11,3 +11,11 @@ TextureManager * TextureManager::getInstance()
 	}
 	return instance;
 }
+
+void TextureManager::load(const std::string& ID,const std::string & file)
+{
+	if (!textureMap[ID].loadFromFile(file))
+	{
+		std::cout << "Couldn't load file :" << file << std::endl;
+	}
+}
