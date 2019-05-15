@@ -1,6 +1,7 @@
 #pragma once
 #include "SFML/Graphics.hpp"
 #include "Vec2.h"
+#include "TextureManager.h"
 using namespace sf;
 const static int SCREEN_WIDTH = 915;
 const static int SCREEN_HEIGHT = 720;
@@ -15,7 +16,7 @@ public:
 	void clear();
 
 	Sprite sprite;
-	Texture texture;
+	Texture *texture;
 	Vec2 position;
 	Vec2 size;
 	float acceleration;

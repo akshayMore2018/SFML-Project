@@ -5,14 +5,11 @@ Game::Game(const std::string name, unsigned int height, unsigned int width)
 {	
 	m_Window.create(VideoMode(width, height), name);
 	m_Window.setFramerateLimit(60);
-	if (!background.loadFromFile("Assets/space.jpg"))
-	{
-		std::cout << "Could not load asset";
-	}
-	else
-	{
-		bg.setTexture(background);
-	}
+
+	TextureManager::getInstance()->textureMap["bg"].loadFromFile("Assets/space.jpg");
+	TextureManager::getInstance()->textureMap["ship"].loadFromFile("Assets/player.png");
+	std::cout << TextureManager::getInstance()->textureMap.size()<<std::endl;
+
 	obj = new Player();
 }
 

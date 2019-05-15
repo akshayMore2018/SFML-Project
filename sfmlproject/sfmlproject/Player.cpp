@@ -4,25 +4,19 @@
 
 Player::Player()
 {
-	if (!texture.loadFromFile("Assets/player.png"))
-	{
-		std::cout << "Could not load asset";
-	}
-	else
-	{
-		texture.setSmooth(true);
-		sprite.setTexture(texture);
-		position =  Vec2(SCREEN_WIDTH/2, SCREEN_HEIGHT/2);
-		size = Vec2(texture.getSize().x, texture.getSize().y);
-		sprite.setOrigin(size.x/2, size.y/2);
-		sprite.setPosition(position.x,position.y);
-		sprite.setScale(0.6f, 0.6f);
-		velocity = 0;
-		acceleration = 0;
-		rotation = -90;
-		angle = 0;
-	}
-
+	texture = &(TextureManager::getInstance()->textureMap["ship"]);
+	texture->setSmooth(true);
+	sprite.setTexture(*texture);
+	position =  Vec2(SCREEN_WIDTH/2, SCREEN_HEIGHT/2);
+	size = Vec2(texture->getSize().x, texture->getSize().y);
+	sprite.setOrigin(size.x/2, size.y/2);
+	sprite.setPosition(position.x,position.y);
+	sprite.setScale(0.6f, 0.6f);
+	velocity = 0;
+	acceleration = 0;
+	rotation = -90;
+	angle = 0;
+	
 }
 
 Player::~Player()

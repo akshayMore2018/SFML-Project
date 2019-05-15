@@ -21,7 +21,6 @@ private:
 	RenderWindow m_Window;
 	Event m_Event;
 	Entity* obj = nullptr;
-	Texture background;
 	Sprite bg;
 
 };
