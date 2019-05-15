@@ -48,7 +48,7 @@ void Game::event()
 			m_Window.close();
 			break;
 		default:
-			if (Keyboard::isKeyPressed(Keyboard::Space))
+			if (Keyboard::isKeyPressed(Keyboard::LAlt))
 			{
 				bullet = new Bullet(player->position,player->rotation);
 			}
