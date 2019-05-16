@@ -3,6 +3,7 @@
 #include "SFML/Graphics.hpp"
 #include "Entity.h"
 #include "Bullet.h";
+#include "Animation.h"
 using namespace sf;
 
 class Game
@@ -25,6 +26,8 @@ private:
 	Sprite bg;
 	Bullet* bullet = nullptr;
 	std::vector<Bullet*> bulletList;
+	Sprite explosion;
+	Animation animation;
 };
 
 inline bool Game::isRunning()
