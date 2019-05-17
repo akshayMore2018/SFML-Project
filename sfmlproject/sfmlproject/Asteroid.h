@@ -1,10 +1,12 @@
 #pragma once
-class Asteroid
+#include "Entity.h"
+class Asteroid : public Entity
 {
 public:
-	Asteroid();
+	Asteroid(float x, float y);
 	~Asteroid();
 
 	void update();
-	
+private:
+	Vec2 velocity;
 };

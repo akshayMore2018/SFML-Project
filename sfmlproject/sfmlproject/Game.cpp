@@ -13,15 +13,15 @@ Game::Game(const std::string name, unsigned int height, unsigned int width)
 	TextureManager::getInstance()->load("ship","Assets/player.png");
 	TextureManager::getInstance()->load("bullet", "Assets/laserGreen.png");
 	TextureManager::getInstance()->load("explosion", "Assets/type_A.png");
+	TextureManager::getInstance()->load("asteroid", "Assets/rock.png");
 	bg.setTexture(TextureManager::getInstance()->textureMap["bg"]);
 	player = new Player();
 
-	explosion.setTexture(TextureManager::getInstance()->textureMap["explosion"]);
-
-	explosion.setPosition(300, 300);
-	explosion.setScale(2, 2);
-	animation = Animation(explosion, 50, 0, 50, 50, 20, 0.4f);
-
+	float N = 4;
+	while (N--)
+	{
+		asteroidList.push_back(new Asteroid(rand() % 400, rand() % 400));
+	}
 }
 
 Game::~Game()
@@ -51,8 +51,15 @@ void Game::update()
 
 		}
 	}
+	
+	if (asteroidList.size() != 0)
+	{
+		for (auto i = asteroidList.begin(); i != asteroidList.end(); i++)
+		{
+			(*i)->update();
+		}
+	}
 
-	animation.update();
 	player->update();
 }
 
@@ -69,8 +76,16 @@ void Game::render()
 			m_Window.draw((*i)->sprite);
 		}
 	}
+
+	if (asteroidList.size() != 0)
+	{
+		for (auto i = asteroidList.begin(); i != asteroidList.end(); i++)
+		{
+			m_Window.draw((*i)->sprite);
+		}
+	}
+
 	m_Window.draw(player->sprite);
-	m_Window.draw(explosion);
 	m_Window.display();
 }
 

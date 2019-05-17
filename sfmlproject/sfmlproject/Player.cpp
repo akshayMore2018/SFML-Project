@@ -12,7 +12,7 @@ Player::Player()
 	sprite.setOrigin(size.x/2, size.y/2);
 	sprite.setPosition(position.x,position.y);
 	sprite.setScale(0.6f, 0.6f);
-	velocity = 0;
+	speed = 0;
 	acceleration = 0;
 	rotation = -90;
 	angle = 0;
@@ -26,15 +26,15 @@ Player::~Player()
 
 void Player::update()
 {
-	velocity += acceleration;
+	speed += acceleration;
 
-	if (velocity > 3)
+	if (speed > 3)
 	{
-		velocity = 3;
+		speed = 3;
 	}
-	else if (velocity < 0)
+	else if (speed < 0)
 	{
-		velocity = 0;
+		speed = 0;
 	}
 
 	if (sprite.getPosition().x > SCREEN_WIDTH + 15)
@@ -54,8 +54,8 @@ void Player::update()
 		position.y = SCREEN_HEIGHT + 15;
 	}
 	rotation += angle;
-	position.x = position.x + cos((rotation)*0.017453f) * velocity;
-	position.y = position.y + sin((rotation)*0.017453f) * velocity;
+	position.x = position.x + cos((rotation)*0.017453f) * speed;
+	position.y = position.y + sin((rotation)*0.017453f) * speed;
 
 	sprite.setPosition(position.x, position.y);
 	sprite.setRotation(rotation+90);

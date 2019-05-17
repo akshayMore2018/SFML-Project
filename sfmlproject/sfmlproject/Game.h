@@ -3,7 +3,7 @@
 #include "SFML/Graphics.hpp"
 #include "Entity.h"
 #include "Bullet.h";
-#include "Animation.h"
+#include "Asteroid.h"
 using namespace sf;
 
 class Game
@@ -24,10 +24,8 @@ private:
 	Event m_Event;
 	Entity* player = nullptr;
 	Sprite bg;
-	Bullet* bullet = nullptr;
 	std::vector<Bullet*> bulletList;
-	Sprite explosion;
-	Animation animation;
+	std::vector<Asteroid*> asteroidList;
 };
 
 inline bool Game::isRunning()
