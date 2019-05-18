@@ -24,5 +24,6 @@ public:
 	float speed;
 	float rotation;
 	bool remove;
+	float radius;
 	Animation animation;
 };

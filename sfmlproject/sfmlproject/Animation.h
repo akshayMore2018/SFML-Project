@@ -17,5 +17,6 @@ private:
 	float frameCount;
 	float animSpeed;
 	float frames;
+public:
 	Sprite* sprite;
 };

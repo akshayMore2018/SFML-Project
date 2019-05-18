@@ -18,6 +18,7 @@ public:
 	void render();
 	void event();
 	void clear();
+	bool checkCollision(Entity* a, Entity* b);
 
 private:
 	RenderWindow m_Window;

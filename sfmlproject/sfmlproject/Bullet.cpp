@@ -9,7 +9,7 @@ Bullet::Bullet(Vec2 pos, float rot)
 	speed = 9.0f;
 	rotation = rot;
 	remove = false;
-	
+	radius = 6;
 }
 
 Bullet::~Bullet()

@@ -17,7 +17,7 @@ Game::Game(const std::string name, unsigned int height, unsigned int width)
 	bg.setTexture(TextureManager::getInstance()->textureMap["bg"]);
 	player = new Player();
 
-	float N = 4;
+	float N = 5;
 	while (N--)
 	{
 		asteroidList.push_back(new Asteroid(rand() % 400, rand() % 400));
@@ -54,13 +54,48 @@ void Game::update()
 	
 	if (asteroidList.size() != 0)
 	{
-		for (auto i = asteroidList.begin(); i != asteroidList.end(); i++)
+		for (auto i = asteroidList.begin(); i != asteroidList.end();)
 		{
 			(*i)->update();
+			if ((*i)->remove)
+			{
+				std::cout << " asteroids left :" << asteroidList.size() << std::endl;
+				delete (*i);
+				i = asteroidList.erase(i);
+			}
+			else
+			{
+				i++;
+			}
 		}
 	}
 
+
+
+	
+	
+	for (auto aitr = asteroidList.begin(); aitr != asteroidList.end(); aitr++)
+	{
+		for (auto bitr = bulletList.begin(); bitr != bulletList.end(); bitr++)
+		{ 
+			if (checkCollision(*aitr, *bitr))
+			{
+				(*aitr)->remove = true;
+				(*bitr)->remove = true;
+			}
+		}	
+	}
+	
+
+
 	player->update();
+}
+
+bool Game::checkCollision(Entity* a, Entity* b)
+{
+	return (b->position.x - a->position.x)*(b->position.x - a->position.x) +
+		(b->position.y - a->position.y)*(b->position.y - a->position.y) <
+		(b->radius + a->radius)*(b->radius + a->radius);
 }
 
 void Game::render()
@@ -81,6 +116,7 @@ void Game::render()
 	{
 		for (auto i = asteroidList.begin(); i != asteroidList.end(); i++)
 		{
+			if (!((*i)->remove))
 			m_Window.draw((*i)->sprite);
 		}
 	}
