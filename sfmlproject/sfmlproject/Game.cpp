@@ -1,8 +1,6 @@
 #include "Game.h"
 #include "Player.h"
 
-float frames = 0;
-float animSpeed = 0.5f;
 
 Game::Game(const std::string name, unsigned int height, unsigned int width)
 {
