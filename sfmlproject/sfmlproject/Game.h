@@ -27,6 +27,7 @@ private:
 	Sprite bg;
 	std::vector<Bullet*> bulletList;
 	std::vector<Asteroid*> asteroidList;
+	
 };
 
 inline bool Game::isRunning()

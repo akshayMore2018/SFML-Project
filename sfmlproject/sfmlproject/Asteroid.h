@@ -9,4 +9,8 @@ public:
 	void update();
 private:
 	Vec2 velocity;
+	Sprite explosion;
+public:
+	Animation explosionAnim;
+
 };

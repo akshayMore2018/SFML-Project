@@ -5,12 +5,12 @@ float frames = 0;
 float animSpeed = 0.5f;
 
 Game::Game(const std::string name, unsigned int height, unsigned int width)
-{	
+{
 	m_Window.create(VideoMode(width, height), name);
 	m_Window.setFramerateLimit(60);
 
-	TextureManager::getInstance()->load("bg","Assets/space.jpg");
-	TextureManager::getInstance()->load("ship","Assets/player.png");
+	TextureManager::getInstance()->load("bg", "Assets/space.jpg");
+	TextureManager::getInstance()->load("ship", "Assets/player.png");
 	TextureManager::getInstance()->load("bullet", "Assets/laserGreen.png");
 	TextureManager::getInstance()->load("explosion", "Assets/type_A.png");
 	TextureManager::getInstance()->load("asteroid", "Assets/rock.png");
@@ -32,6 +32,20 @@ Game::~Game()
 
 void Game::update()
 {
+	//checking collision before entitiy's update as explosion sprite texture was being rendered before setting the texture rect. 
+	for (auto aitr = asteroidList.begin(); aitr != asteroidList.end(); aitr++)
+	{
+		for (auto bitr = bulletList.begin(); bitr != bulletList.end(); bitr++)
+		{
+			if (checkCollision(*aitr, *bitr))
+			{
+				(*aitr)->remove = true;
+				(*bitr)->remove = true;
+			}
+		}
+	}
+
+
 	if (bulletList.size() != 0)
 	{
 		for (auto i = bulletList.begin(); i != bulletList.end();)
@@ -42,7 +56,7 @@ void Game::update()
 			{
 				std::cout << bulletList.size() << std::endl;
 				delete (*i);
-				i=bulletList.erase(i);
+				i = bulletList.erase(i);
 			}
 			else
 			{
@@ -51,17 +65,17 @@ void Game::update()
 
 		}
 	}
-	
+
 	if (asteroidList.size() != 0)
 	{
 		for (auto i = asteroidList.begin(); i != asteroidList.end();)
 		{
 			(*i)->update();
-			if ((*i)->remove)
+			if ((*i)->remove && (*i)->explosionAnim.isAnimComplete())
 			{
-				std::cout << " asteroids left :" << asteroidList.size() << std::endl;
 				delete (*i);
 				i = asteroidList.erase(i);
+				std::cout << " asteroids left :" << asteroidList.size() << std::endl;
 			}
 			else
 			{
@@ -69,25 +83,6 @@ void Game::update()
 			}
 		}
 	}
-
-
-
-	
-	
-	for (auto aitr = asteroidList.begin(); aitr != asteroidList.end(); aitr++)
-	{
-		for (auto bitr = bulletList.begin(); bitr != bulletList.end(); bitr++)
-		{ 
-			if (checkCollision(*aitr, *bitr))
-			{
-				(*aitr)->remove = true;
-				(*bitr)->remove = true;
-			}
-		}	
-	}
-	
-
-
 	player->update();
 }
 
@@ -107,8 +102,8 @@ void Game::render()
 	{
 		for (auto i = bulletList.begin(); i != bulletList.end(); i++)
 		{
-			if(!((*i)->remove))
-			m_Window.draw((*i)->sprite);
+			if (!((*i)->remove))
+				m_Window.draw((*i)->sprite);
 		}
 	}
 
@@ -116,8 +111,14 @@ void Game::render()
 	{
 		for (auto i = asteroidList.begin(); i != asteroidList.end(); i++)
 		{
-			if (!((*i)->remove))
-			m_Window.draw((*i)->sprite);
+			if (!((*i)->remove)) {
+				m_Window.draw((*i)->sprite);
+			}
+			else
+			{
+				m_Window.draw(*((*i)->explosionAnim.sprite));
+			}
+
 		}
 	}
 
@@ -135,8 +136,8 @@ void Game::event()
 			m_Window.close();
 			break;
 		case Event::KeyReleased:
-			if(m_Event.key.code==Keyboard::LAlt)
-			bulletList.push_back(new Bullet(player->position, player->rotation));
+			if (m_Event.key.code == Keyboard::LAlt)
+				bulletList.push_back(new Bullet(player->position, player->rotation));
 		default:
 			player->events(m_Event);
 			break;

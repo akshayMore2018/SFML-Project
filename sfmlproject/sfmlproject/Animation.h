@@ -6,9 +6,11 @@ class Animation
 {
 public:
 	Animation();
-	Animation(Sprite& sprite, float x, float y, float frameWidth, float frameHeight, float framecount,float animspeed);
+	Animation(Sprite& sprite, float x, float y, float frameWidth, float frameHeight, float framecount,float animspeed , int animCycle);
 
 	void update();
+	
+	bool isAnimComplete();
 private:
 	float x;
 	float y;
@@ -17,6 +19,13 @@ private:
 	float frameCount;
 	float animSpeed;
 	float frames;
+	bool animComplete;
+	int animCycle;
 public:
 	Sprite* sprite;
 };
+
+inline bool Animation::isAnimComplete()
+{
+	return animComplete;
+}
