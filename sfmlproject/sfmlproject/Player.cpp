@@ -21,16 +21,16 @@ Player::Player()
 
 Player::~Player()
 {
-	std::cout << "Player destroyed" << std::endl;
+	std::cout << "Player destructor" << std::endl;
 }
 
 void Player::update()
 {
 	speed += acceleration;
 
-	if (speed > 3)
+	if (speed > 4)
 	{
-		speed = 3;
+		speed = 4;
 	}
 	else if (speed < 0)
 	{
@@ -77,7 +77,7 @@ void Player::events(const Event& event)
 
 		if (event.key.code == Keyboard::Up)
 		{
-			acceleration = 0.05f;
+			acceleration = 0.07f;
 		}
 		
 	}

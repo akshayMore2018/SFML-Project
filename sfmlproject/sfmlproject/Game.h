@@ -4,6 +4,8 @@
 #include "Entity.h"
 #include "Bullet.h";
 #include "Asteroid.h"
+#include <stack>
+class State;
 using namespace sf;
 
 class Game
@@ -17,16 +19,11 @@ public:
 	void update();
 	void render();
 	void event();
-	void clear();
-	bool checkCollision(Entity* a, Entity* b);
 
 private:
 	RenderWindow m_Window;
 	Event m_Event;
-	Entity* player = nullptr;
-	Sprite bg;
-	std::vector<Bullet*> bulletList;
-	std::vector<Asteroid*> asteroidList;
+	std::stack<State*>states;
 };
 
 inline bool Game::isRunning()

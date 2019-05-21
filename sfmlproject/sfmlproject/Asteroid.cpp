@@ -20,6 +20,7 @@ Asteroid::Asteroid(float x , float y)
 
 Asteroid::~Asteroid()
 {
+	std::cout << "Asteroid destructor" << std::endl;
 }
 
 void Asteroid::update()

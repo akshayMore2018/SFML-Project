@@ -14,6 +14,7 @@ Bullet::Bullet(Vec2 pos, float rot)
 
 Bullet::~Bullet()
 {
+	std::cout << "Bullet destructor" << std::endl;
 }
 
 void Bullet::update()

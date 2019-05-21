@@ -14,7 +14,6 @@ public:
 
 	virtual void update();
 	virtual void events(const Event& event);
-	void clear();
 
 	Sprite sprite;
 	Texture *texture;
