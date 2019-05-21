@@ -35,7 +35,7 @@ void Game::update()
 	{
 		for (auto bitr = bulletList.begin(); bitr != bulletList.end(); bitr++)
 		{
-			if (checkCollision(*aitr, *bitr))
+			if (checkCollision(*aitr, *bitr) && !((*aitr)->remove))
 			{
 				(*aitr)->remove = true;
 				(*bitr)->remove = true;
