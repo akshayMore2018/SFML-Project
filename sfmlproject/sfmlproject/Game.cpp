@@ -1,11 +1,14 @@
 #include "Game.h"
 #include "GameState.h"
+#include "MenuState.h"
 
 Game::Game(const std::string name, unsigned int height, unsigned int width)
 {
 	m_Window.create(VideoMode(width, height), name);
 	m_Window.setFramerateLimit(60);
+	
 	this->states.push(new GameState());
+	this->states.push(new MenuState());
 }
 
 Game::~Game()
@@ -19,8 +22,11 @@ void Game::update()
 	{
 		this->states.top()->update();
 
-
-
+		if (this->states.top()->canExit())
+		{
+			delete this->states.top();
+			this->states.pop();
+		}
 	}
 }
 

@@ -138,12 +138,23 @@ void GameState::events(const Event& m_Event)
 {
 	switch (m_Event.type)
 	{
-		case Event::KeyReleased:
+	case Event::KeyPressed:
+		if (m_Event.key.code == Keyboard::Escape)
+		{
+			setExit(true);
+		}
+		break;
+	case Event::KeyReleased:
 		if (m_Event.key.code == Keyboard::LAlt)
 			bulletList.push_back(new Bullet(player->position, player->rotation));
-	default:
-		player->events(m_Event);
 		break;
+		
 	}
-	
+	player->events(m_Event);
+}
+
+
+void GameState::onExit()
+{
+
 }
