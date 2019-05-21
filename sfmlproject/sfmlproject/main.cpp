@@ -1,10 +1,27 @@
 #include<iostream>
 #include "Game.h"
+#include <fstream>
 
 int main()
 {
 	{
-		Game game("nightmare", 720, 915);
+
+		std::ifstream f("Config/window.ini");
+
+		std::string title = "None";
+		unsigned int width = 915;
+		unsigned int height = 720;
+		if (f.is_open())
+		{
+			std::getline(f,title);
+			f >> width >> height;
+		}
+		else
+		{
+			std::cerr << "Error reading file" << std::endl;
+		}
+
+		Game game(title, height, width);
 
 		while (game.isRunning())
 		{
