@@ -1,6 +1,6 @@
 # SFML-Project
 Creating a simple game using sfml
 
-![Menu](MenuState.png)
+![output](MenuState.png)
 
-![Game](MenuState.png)
+![output](MenuState.png)
