@@ -20,6 +20,7 @@ void Game::update()
 {
 	if (!this->states.empty())
 	{
+		this->states.top()->handleInputs();
 		this->states.top()->update();
 
 		if (this->states.top()->canExit())
@@ -56,11 +57,6 @@ void Game::event()
 				this->states.pop();
 			}
 			break;
-		default:
-			if (!this->states.empty())
-			{
-				this->states.top()->events(m_Event);
-			}
 		}
 	}
 }

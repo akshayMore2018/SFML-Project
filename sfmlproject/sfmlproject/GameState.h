@@ -3,6 +3,7 @@
 class Entity;
 class Bullet;
 class Asteroid;
+class Player;
 class GameState :public State
 {
 public:
@@ -12,12 +13,11 @@ public:
 	void update();
 	void render(RenderWindow * m_Window);
 	bool checkCollision(Entity * a, Entity * b);
-	void events(const Event& m_Event);
+	void handleInputs();
 	void onExit();
 private:
 
-	Entity* player = nullptr;
-	Sprite bg;
+	Player* player = nullptr;
 	std::vector<Bullet*> bulletList;
 	std::vector<Asteroid*> asteroidList;
 };

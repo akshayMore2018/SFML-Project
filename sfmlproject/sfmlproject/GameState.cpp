@@ -41,6 +41,8 @@ GameState::~GameState()
 
 void GameState::update()
 {
+	handleInputs();
+
 	//checking collision before entitiy's update as explosion sprite texture was being rendered before setting the texture rect. 
 	for (auto aitr = asteroidList.begin(); aitr != asteroidList.end(); aitr++)
 	{
@@ -134,25 +136,27 @@ bool GameState::checkCollision(Entity * a, Entity * b)
 		(b->radius + a->radius)*(b->radius + a->radius);;
 }
 
-void GameState::events(const Event& m_Event)
+void GameState::handleInputs()
 {
-	switch (m_Event.type)
+	player->rotate(0);
+	player->thrust(-0.2f);
+	if (Keyboard::isKeyPressed(Keyboard::Left))
 	{
-	case Event::KeyPressed:
-		if (m_Event.key.code == Keyboard::Escape)
-		{
-			setExit(true);
-		}
-		break;
-	case Event::KeyReleased:
-		if (m_Event.key.code == Keyboard::LAlt)
-			bulletList.push_back(new Bullet(player->position, player->rotation));
-		break;
-		
+		player->rotate(-3);
 	}
-	player->events(m_Event);
+	if (Keyboard::isKeyPressed(Keyboard::Right))
+	{
+		player->rotate(3);
+	}
+	if (Keyboard::isKeyPressed(Keyboard::Up))
+	{
+		player->thrust(1);
+	}
+	if (Keyboard::isKeyPressed(Keyboard::LAlt))
+	{
+		bulletList.push_back(new Bullet(player->position, player->rotation));
+	}
 }
-
 
 void GameState::onExit()
 {

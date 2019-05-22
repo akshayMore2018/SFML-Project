@@ -9,7 +9,7 @@ public:
 
 	void update();
 	void render(RenderWindow * m_Window);
-	void events(const Event& m_Event);
+	void handleInputs();
 	void onExit();
 
 private:

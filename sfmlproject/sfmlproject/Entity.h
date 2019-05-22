@@ -13,7 +13,6 @@ public:
 	virtual ~Entity();
 
 	virtual void update();
-	virtual void events(const Event& event);
 
 	Sprite sprite;
 	Texture *texture;

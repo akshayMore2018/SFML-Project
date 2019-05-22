@@ -15,8 +15,3 @@ void Entity::update()
 {
 }
 
-
-void Entity::events(const Event& event)
-{
-}
-

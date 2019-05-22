@@ -20,7 +20,7 @@ int main()
 		{
 			std::cerr << "Error reading file" << std::endl;
 		}
-
+		f.close();
 		Game game(title, height, width);
 
 		while (game.isRunning())

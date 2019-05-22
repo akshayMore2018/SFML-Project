@@ -7,13 +7,14 @@ MenuState::MenuState()
 		std::cout << "Could not load font file" << std::endl;
 		system("pause");
 	}
+	TextureManager::getInstance()->load("menuBG", "Assets/menu.jpg");
 	text.setFont(font);
 	text.setString("Star Hopper");
 	text.setCharacterSize(60);
 	FloatRect textRect = text.getLocalBounds();
 	text.setOrigin(textRect.left+textRect.width/2,textRect.top+textRect.height/2);
 	text.setPosition(915 / 2, (720 / 2)*0.5f);
-
+	bg.setTexture(TextureManager::getInstance()->textureMap["menuBG"]);
 }
 
 MenuState::~MenuState()
@@ -28,20 +29,17 @@ void MenuState::update()
 
 void MenuState::render(RenderWindow * m_Window)
 {
+	m_Window->draw(bg);
 	m_Window->draw(text);
 }
 
-void MenuState::events(const Event & m_Event)
+void MenuState::handleInputs()
 {
-	switch (m_Event.type)
+	if (Keyboard::isKeyPressed(Keyboard::P))
 	{
-	case Event::KeyPressed:
-		if (m_Event.key.code == Keyboard::N)
-		{
-			setExit(true);
-		}
-		break;
+		setExit(true);
 	}
+
 }
 
 void MenuState::onExit()

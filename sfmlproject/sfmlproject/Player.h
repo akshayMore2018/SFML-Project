@@ -8,7 +8,8 @@ public:
 	Player();
 	 ~Player();
 	void update();
-	void events(const Event& event);
+	void rotate(float angle);
+	void thrust(float acceleration);
 
 	float angle;
 };

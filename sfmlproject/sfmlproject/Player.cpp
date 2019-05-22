@@ -61,37 +61,14 @@ void Player::update()
 	sprite.setRotation(rotation+90);
 }
 
-void Player::events(const Event& event)
+
+void Player::thrust(float acceleration)
 {
-
-	if(event.type==Event::KeyPressed)
-	{
-		if (event.key.code == Keyboard::Left)
-		{
-			angle = -3;
-		}
-		else if (event.key.code == Keyboard::Right)
-		{
-			angle = 3;
-		}
-
-		if (event.key.code == Keyboard::Up)
-		{
-			acceleration = 0.07f;
-		}
-		
-	}
-	else if (event.type==Event::KeyReleased)
-	{
-		if (event.key.code == Keyboard::Left || event.key.code == Keyboard::Right)
-		{
-			angle = 0;
-		}
-
-		if (event.key.code == Keyboard::Up)
-		{
-			acceleration = -0.03f;
-		}
-	}
-
+	this->acceleration = acceleration;
 }
+
+void Player::rotate(float angle)
+{
+	this->angle = angle;
+}
+
