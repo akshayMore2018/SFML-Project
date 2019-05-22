@@ -6,11 +6,11 @@
 
 GameState::GameState()
 {
-	TextureManager::getInstance()->load("bg", "Assets/space.jpg");
-	TextureManager::getInstance()->load("ship", "Assets/player.png");
-	TextureManager::getInstance()->load("bullet", "Assets/laserGreen.png");
-	TextureManager::getInstance()->load("explosion", "Assets/type_A.png");
-	TextureManager::getInstance()->load("asteroid", "Assets/rock.png");
+	TextureManager::getInstance()->loadTexture("bg", "Assets/space.jpg");
+	TextureManager::getInstance()->loadTexture("ship", "Assets/player.png");
+	TextureManager::getInstance()->loadTexture("bullet", "Assets/laserGreen.png");
+	TextureManager::getInstance()->loadTexture("explosion", "Assets/type_A.png");
+	TextureManager::getInstance()->loadTexture("asteroid", "Assets/rock.png");
 	bg.setTexture(TextureManager::getInstance()->textureMap["bg"]);
 	player = new Player();
 

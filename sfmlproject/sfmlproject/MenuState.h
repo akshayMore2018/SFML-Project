@@ -1,6 +1,6 @@
 #pragma once
 #include "State.h"
-
+#include "Button.h"
 class MenuState : public State
 {
 public:
@@ -13,6 +13,6 @@ public:
 	void onExit();
 
 private:
-	Font font;
 	Text text;
-};
+	Button* button;
+}; 

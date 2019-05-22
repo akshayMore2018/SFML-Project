@@ -10,8 +10,10 @@ class TextureManager
 
 public:
 	static TextureManager* getInstance();
-	void load(const std::string& ID,const std::string& file);
+	void loadTexture(const std::string& ID,const std::string& file);
+	void loadFont(const std::string& ID, const std::string& file);
 
 	std::map<std::string, sf::Texture> textureMap;
+	std::map<std::string, sf::Font> fontMap;
 };
 

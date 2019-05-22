@@ -12,10 +12,19 @@ TextureManager * TextureManager::getInstance()
 	return instance;
 }
 
-void TextureManager::load(const std::string& ID,const std::string & file)
+void TextureManager::loadTexture(const std::string& ID,const std::string & file)
 {
 	if (!textureMap[ID].loadFromFile(file))
 	{
 		std::cout << "Couldn't load file :" << file << std::endl;
+	}
+}
+
+void TextureManager::loadFont(const std::string & ID, const std::string & file)
+{
+	if (!fontMap[ID].loadFromFile(file))
+	{
+		std::cout << "Couldn't load file :" << file << std::endl;
+		system("pause");
 	}
 }
