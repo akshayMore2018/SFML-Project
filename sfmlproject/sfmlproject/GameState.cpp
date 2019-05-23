@@ -1,14 +1,14 @@
 #include "GameState.h"
 #include "Player.h"
 #include "Asteroid.h"
-#include "Bullet.h"
+#include "BlueBullet.h"
 
 
 GameState::GameState()
 {
 	TextureManager::getInstance()->loadTexture("bg", "Assets/space.jpg");
 	TextureManager::getInstance()->loadTexture("ship", "Assets/player.png");
-	TextureManager::getInstance()->loadTexture("bullet", "Assets/laserGreen.png");
+	TextureManager::getInstance()->loadTexture("blueBullet", "Assets/blueFlame.png");
 	TextureManager::getInstance()->loadTexture("explosion", "Assets/type_A.png");
 	TextureManager::getInstance()->loadTexture("asteroid", "Assets/rock.png");
 	bg.setTexture(TextureManager::getInstance()->textureMap["bg"]);
@@ -19,6 +19,7 @@ GameState::GameState()
 	{
 		asteroidList.push_back(new Asteroid(rand() % 400, rand() % 400));
 	}
+	delay = 0;
 }
 
 GameState::~GameState()
@@ -154,7 +155,12 @@ void GameState::handleInputs()
 	}
 	if (Keyboard::isKeyPressed(Keyboard::LAlt))
 	{
-		bulletList.push_back(new Bullet(player->position, player->rotation));
+		if (delay == 0)
+		{
+			bulletList.push_back(new BlueBullet(player->position, player->rotation));
+			delay = 10;
+		}
+		delay--;
 	}
 }
 

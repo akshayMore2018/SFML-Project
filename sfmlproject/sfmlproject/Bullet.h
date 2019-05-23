@@ -3,7 +3,7 @@
 class Bullet : public Entity
 {
 public:
-	Bullet(Vec2 pos, float rot);
-	~Bullet();
-	void update();
+	Bullet();
+	virtual ~Bullet();
+	virtual void update()=0;
 };

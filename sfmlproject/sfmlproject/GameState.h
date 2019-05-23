@@ -20,4 +20,5 @@ private:
 	Player* player = nullptr;
 	std::vector<Bullet*> bulletList;
 	std::vector<Asteroid*> asteroidList;
+	float delay;
 };
