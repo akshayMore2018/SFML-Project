@@ -8,6 +8,7 @@ public:
 	Player();
 	 ~Player();
 	void update();
+	void render(RenderWindow* window);
 	void rotate(float angle);
 	void thrust(float acceleration);
 

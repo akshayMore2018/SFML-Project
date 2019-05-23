@@ -7,5 +7,6 @@ public:
 	~BlueBullet();
 
 	void update();
+	void render(RenderWindow* window);
 
 };

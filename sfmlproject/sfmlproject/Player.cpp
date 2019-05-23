@@ -61,6 +61,11 @@ void Player::update()
 	sprite.setRotation(rotation+90);
 }
 
+void Player::render(RenderWindow * window)
+{
+	window->draw(this->sprite);
+}
+
 
 void Player::thrust(float acceleration)
 {

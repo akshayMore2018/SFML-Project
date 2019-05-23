@@ -35,3 +35,8 @@ void BlueBullet::update()
 	sprite.setRotation(rotation - 180);
 	animation.update();
 }
+
+void BlueBullet::render(RenderWindow * window)
+{
+	window->draw(this->sprite);
+}

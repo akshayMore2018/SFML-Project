@@ -11,7 +11,4 @@ Entity::~Entity()
 	std::cout << "Entity destructor" << std::endl;
 }
 
-void Entity::update()
-{
-}
 

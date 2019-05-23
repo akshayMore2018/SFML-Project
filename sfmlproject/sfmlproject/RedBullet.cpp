@@ -35,3 +35,8 @@ void RedBullet::update()
 	sprite.setRotation(rotation - 180);
 	animation.update();
 }
+
+void RedBullet::render(RenderWindow * window)
+{
+	window->draw(this->sprite);
+}

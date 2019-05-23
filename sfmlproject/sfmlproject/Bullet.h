@@ -6,4 +6,5 @@ public:
 	Bullet();
 	virtual ~Bullet();
 	virtual void update()=0;
+	virtual void render(RenderWindow* window) = 0;
 };

@@ -35,3 +35,8 @@ void PinkBullet::update()
 	sprite.setRotation(rotation - 180);
 	animation.update();
 }
+
+void PinkBullet::render(RenderWindow * window)
+{
+	window->draw(this->sprite);
+}

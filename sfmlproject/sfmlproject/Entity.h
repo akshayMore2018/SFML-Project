@@ -12,7 +12,8 @@ public:
 	Entity();
 	virtual ~Entity();
 
-	virtual void update();
+	virtual void update()=0;
+	virtual void render(RenderWindow* window)=0;
 
 	Sprite sprite;
 	Texture *texture;

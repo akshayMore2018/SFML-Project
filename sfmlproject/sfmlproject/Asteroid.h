@@ -7,6 +7,7 @@ public:
 	~Asteroid();
 
 	void update();
+	void render(RenderWindow* window);
 private:
 	Vec2 velocity;
 	Sprite explosion;

@@ -111,8 +111,7 @@ void GameState::render(RenderWindow * m_Window)
 	{
 		for (auto i = bulletList.begin(); i != bulletList.end(); i++)
 		{
-			if (!((*i)->remove))
-				m_Window->draw((*i)->sprite);
+			(*i)->render(m_Window);
 		}
 	}
 
@@ -120,18 +119,11 @@ void GameState::render(RenderWindow * m_Window)
 	{
 		for (auto i = asteroidList.begin(); i != asteroidList.end(); i++)
 		{
-			if (!((*i)->remove)) {
-				m_Window->draw((*i)->sprite);
-			}
-			else
-			{
-				m_Window->draw(*((*i)->explosionAnim.sprite));
-			}
-
+				(*i)->render(m_Window);
 		}
 	}
 
-	m_Window->draw(player->sprite);
+	player->render(m_Window);
 }
 
 bool GameState::checkCollision(Entity * a, Entity * b)

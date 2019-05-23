@@ -7,4 +7,5 @@ public:
 	~RedBullet();
 
 	void update();
+	void render(RenderWindow* window);
 };

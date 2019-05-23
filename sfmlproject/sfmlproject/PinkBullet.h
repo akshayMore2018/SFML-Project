@@ -7,5 +7,5 @@ public:
 	~PinkBullet();
 
 	void update();
-
+	void render(RenderWindow* window);
 };

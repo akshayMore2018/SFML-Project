@@ -57,3 +57,16 @@ void Asteroid::update()
 	sprite.setPosition(position.x, position.y);
 	animation.update();
 }
+
+void Asteroid::render(RenderWindow * window)
+{
+	if (!remove)
+	{
+		window->draw(this->sprite);
+	}
+	else
+	{
+		window->draw(*(this->explosionAnim.sprite));
+	}
+
+}
