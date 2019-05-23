@@ -1,8 +1,8 @@
-#include "BlueBullet.h"
+#include "PinkBullet.h"
 
-BlueBullet::BlueBullet(Vec2 pos, float rot)
+PinkBullet::PinkBullet(Vec2 pos, float rot)
 {
-	sprite.setTexture(TextureManager::getInstance()->textureMap["blueBullet"]);
+	sprite.setTexture(TextureManager::getInstance()->textureMap["pinkBullet"]);
 	animation = Animation(sprite, 512, 0, 512, 197, 3, 0.4f, -1);
 	animation.sprite->setOrigin(512 / 2, 197 / 2);
 	animation.sprite->setScale(0.1f, 0.1f);
@@ -14,11 +14,11 @@ BlueBullet::BlueBullet(Vec2 pos, float rot)
 	radius = 6;
 }
 
-BlueBullet::~BlueBullet()
+PinkBullet::~PinkBullet()
 {
 }
 
-void BlueBullet::update()
+void PinkBullet::update()
 {
 	if (remove)
 		return;

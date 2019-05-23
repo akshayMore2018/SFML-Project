@@ -2,13 +2,17 @@
 #include "Player.h"
 #include "Asteroid.h"
 #include "BlueBullet.h"
+#include "RedBullet.h"
+#include "PinkBullet.h"
 
 
 GameState::GameState()
 {
 	TextureManager::getInstance()->loadTexture("bg", "Assets/space.jpg");
 	TextureManager::getInstance()->loadTexture("ship", "Assets/player.png");
-	TextureManager::getInstance()->loadTexture("blueBullet", "Assets/blueFlame.png");
+	TextureManager::getInstance()->loadTexture("blueBullet", "Assets/bullets/blueFlame.png");
+	TextureManager::getInstance()->loadTexture("redBullet", "Assets/bullets/redFlame.png");
+	TextureManager::getInstance()->loadTexture("pinkBullet", "Assets/bullets/pinkFlame.png");
 	TextureManager::getInstance()->loadTexture("explosion", "Assets/type_A.png");
 	TextureManager::getInstance()->loadTexture("asteroid", "Assets/rock.png");
 	bg.setTexture(TextureManager::getInstance()->textureMap["bg"]);
