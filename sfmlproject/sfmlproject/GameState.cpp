@@ -6,8 +6,9 @@
 #include "PinkBullet.h"
 
 
-GameState::GameState()
+GameState::GameState(RenderWindow* m_Window)
 {
+	this->m_Window = m_Window;
 	TextureManager::getInstance()->loadTexture("bg", "Assets/space.jpg");
 	TextureManager::getInstance()->loadTexture("ship", "Assets/player.png");
 	TextureManager::getInstance()->loadTexture("blueBullet", "Assets/bullets/blueFlame.png");
@@ -46,7 +47,8 @@ GameState::~GameState()
 
 void GameState::update()
 {
-	handleInputs();
+	this->updateMousePosition();
+	this->handleInputs();
 
 	//checking collision before entitiy's update as explosion sprite texture was being rendered before setting the texture rect. 
 	for (auto aitr = asteroidList.begin(); aitr != asteroidList.end(); aitr++)
@@ -104,14 +106,14 @@ void GameState::update()
 
 
 
-void GameState::render(RenderWindow * m_Window)
+void GameState::render()
 {
 	m_Window->draw(bg);
 	if (bulletList.size() != 0)
 	{
 		for (auto i = bulletList.begin(); i != bulletList.end(); i++)
 		{
-			(*i)->render(m_Window);
+			(*i)->render(this->m_Window);
 		}
 	}
 
@@ -119,11 +121,11 @@ void GameState::render(RenderWindow * m_Window)
 	{
 		for (auto i = asteroidList.begin(); i != asteroidList.end(); i++)
 		{
-				(*i)->render(m_Window);
+				(*i)->render(this->m_Window);
 		}
 	}
 
-	player->render(m_Window);
+	player->render(this->m_Window);
 }
 
 bool GameState::checkCollision(Entity * a, Entity * b)

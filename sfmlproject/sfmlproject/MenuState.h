@@ -4,15 +4,16 @@
 class MenuState : public State
 {
 public:
-	MenuState();
+	MenuState(RenderWindow* m_Window);
 	~MenuState();
 
 	void update();
-	void render(RenderWindow * m_Window);
-	void handleInputs();
+	void render();
+	
 	void onExit();
 
 private:
+	void handleInputs();
 	Text text;
 	Button* button;
 }; 

@@ -7,8 +7,8 @@ Game::Game(const std::string name, unsigned int height, unsigned int width)
 	m_Window.create(VideoMode(width, height), name);
 	m_Window.setFramerateLimit(60);
 	
-	this->states.push(new GameState());
-	this->states.push(new MenuState());
+	this->states.push(new GameState(&m_Window));
+	this->states.push(new MenuState(&m_Window));
 }
 
 Game::~Game()
@@ -20,7 +20,6 @@ void Game::update()
 {
 	if (!this->states.empty())
 	{
-		this->states.top()->handleInputs();
 		this->states.top()->update();
 
 		if (this->states.top()->canExit())
@@ -38,7 +37,7 @@ void Game::render()
 	m_Window.clear(Color(0, 0, 0, 255));
 	if (!this->states.empty())
 	{
-		this->states.top()->render(&m_Window);
+		this->states.top()->render();
 	}
 	m_Window.display();
 }

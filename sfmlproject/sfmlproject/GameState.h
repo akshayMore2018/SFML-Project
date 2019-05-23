@@ -7,16 +7,15 @@ class Player;
 class GameState :public State
 {
 public:
-	GameState();
+	GameState(RenderWindow* m_Window);
 	~GameState();
 
 	void update();
-	void render(RenderWindow * m_Window);
+	void render();
 	bool checkCollision(Entity * a, Entity * b);
-	void handleInputs();
 	void onExit();
 private:
-
+	void handleInputs();
 	Player* player = nullptr;
 	std::vector<Bullet*> bulletList;
 	std::vector<Asteroid*> asteroidList;
