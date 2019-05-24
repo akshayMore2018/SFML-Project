@@ -1,9 +1,10 @@
 #include "MenuState.h"
-
-MenuState::MenuState(RenderWindow* m_Window)
+#include "GameState.h"
+MenuState::MenuState(RenderWindow* m_Window, std::stack<State*>* states)
 {
 	this->stateName = "MenuState";
 	this->m_Window = m_Window;
+	this->states = states;
 
 	//title
 	TextureManager::getInstance()->loadFont("title","Assets/fonts/batmfa__.ttf");
@@ -25,6 +26,8 @@ MenuState::MenuState(RenderWindow* m_Window)
 MenuState::~MenuState()
 {
 	std::cout << "MenuState destructor" << std::endl;
+	delete button;
+	m_Window->close();
 }
 
 void MenuState::update()
@@ -58,12 +61,17 @@ void MenuState::MouseButtonReleased(const Vector2f& mouseViewPosition)
 	if (this->button->containsVector(mouseViewPosition))
 	{
 		this->button->buttonReleased();
-		setExit(true);
+		this->states->push(new GameState(this->m_Window, this->states));
+		
 	}
 }
 
 void MenuState::KeyPressed(const Keyboard::Key& code)
 {
+	if (code == Keyboard::Escape)
+	{
+		setExit(true);
+	}
 }
 
 void MenuState::KeyReleased(const Keyboard::Key& code)

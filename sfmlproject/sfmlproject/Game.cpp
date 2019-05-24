@@ -7,8 +7,7 @@ Game::Game(const std::string name, unsigned int height, unsigned int width)
 	m_Window.create(VideoMode(width, height), name);
 	m_Window.setFramerateLimit(60);
 	
-	this->states.push(new GameState(&m_Window));
-	this->states.push(new MenuState(&m_Window));
+	this->states.push(new MenuState(&m_Window,&this->states));
 }
 
 Game::~Game()

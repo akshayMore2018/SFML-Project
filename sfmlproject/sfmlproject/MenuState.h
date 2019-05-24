@@ -4,7 +4,7 @@
 class MenuState : public State
 {
 public:
-	MenuState(RenderWindow* m_Window);
+	MenuState(RenderWindow* m_Window, std::stack<State*>* states);
 	~MenuState();
 
 	void update();

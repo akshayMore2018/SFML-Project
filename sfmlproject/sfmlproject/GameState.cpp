@@ -6,11 +6,11 @@
 #include "PinkBullet.h"
 
 
-GameState::GameState(RenderWindow* m_Window)
+GameState::GameState(RenderWindow* m_Window, std::stack<State*>* states)
 {
 	this->stateName = "GameState";
 	this->m_Window = m_Window;
-
+	this->states = states;
 	TextureManager::getInstance()->loadTexture("bg", "Assets/space.jpg");
 	TextureManager::getInstance()->loadTexture("ship", "Assets/player.png");
 	TextureManager::getInstance()->loadTexture("blueBullet", "Assets/bullets/blueFlame.png");
@@ -176,6 +176,11 @@ void GameState::MouseButtonReleased(const Vector2f& mouseViewPosition)
 
 void GameState::KeyPressed(const Keyboard::Key& code)
 {
+	if (code == Keyboard::Escape)
+	{
+		setExit(true);
+	}
+
 /*
 	if (code==Keyboard::Left)
 	{

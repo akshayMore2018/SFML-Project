@@ -1,6 +1,7 @@
 #pragma once
 #include "SFML/Graphics.hpp"
 #include "TextureManager.h"
+#include <stack>
 using namespace sf;
 class State
 {
@@ -19,6 +20,7 @@ public:
 	virtual void onExit()=0;
 	void setExit(const bool& flag);
 	
+	std::stack<State*>* states;
 	Sprite bg;
 	std::string stateName;
 private:

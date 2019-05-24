@@ -21,7 +21,7 @@ Button::Button(const std::string& ID, const std::string& text, float x, float y)
 
 Button::~Button()
 {
-
+	std::cout << "Button destructor" << std::endl;
 }
 
 void Button::update()

@@ -7,7 +7,7 @@ class Player;
 class GameState :public State
 {
 public:
-	GameState(RenderWindow* m_Window);
+	GameState(RenderWindow* m_Window, std::stack<State*>* states);
 	~GameState();
 
 	void update();
