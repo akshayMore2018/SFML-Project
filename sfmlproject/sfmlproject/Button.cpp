@@ -24,31 +24,15 @@ Button::~Button()
 
 }
 
-void Button::update(const Vector2f mousePosition)
+void Button::update()
 {
-	this->buttonState = IDLE;
-
-	if (this->rect.getGlobalBounds().contains(mousePosition))
-	{
-		this->buttonState = HOVER;
-
-		if (Mouse::isButtonPressed(Mouse::Left))
-		{
-			this->buttonState = PRESSED;
-		}
-	}
-
-
 	switch (buttonState)
 	{
 	case IDLE:
 		this->rect.setFillColor(Color::White);
 		break;
-	case HOVER:
-		this->rect.setFillColor(Color(108, 122, 137));
-		break;
 	case PRESSED:
-		//this->rect.setFillColor(Color(46, 49, 49));
+		this->rect.setFillColor(Color(46, 49, 49));
 		break;
 	}
 
@@ -58,5 +42,25 @@ void Button::render(RenderTarget * target)
 {
 	target->draw(rect);
 	target->draw(this->text);
+}
+
+void Button::buttonPressed()
+{
+	this->buttonState = PRESSED;
+}
+
+void Button::buttonReleased()
+{
+	this->buttonState = IDLE;
+}
+
+bool Button::containsVector(const Vector2f & mousePosition)
+{
+	if (this->rect.getGlobalBounds().contains(mousePosition))
+	{
+		return true;
+	}
+	this->buttonState = IDLE;
+	return false;
 }
 

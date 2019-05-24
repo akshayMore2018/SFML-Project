@@ -8,7 +8,9 @@
 
 GameState::GameState(RenderWindow* m_Window)
 {
+	this->stateName = "GameState";
 	this->m_Window = m_Window;
+
 	TextureManager::getInstance()->loadTexture("bg", "Assets/space.jpg");
 	TextureManager::getInstance()->loadTexture("ship", "Assets/player.png");
 	TextureManager::getInstance()->loadTexture("blueBullet", "Assets/bullets/blueFlame.png");
@@ -47,8 +49,30 @@ GameState::~GameState()
 
 void GameState::update()
 {
-	this->updateMousePosition();
-	this->handleInputs();
+	
+	player->rotate(0);
+	player->thrust(-0.2f);
+	if (Keyboard::isKeyPressed(Keyboard::Left))
+	{
+		player->rotate(-3);
+	}
+	if (Keyboard::isKeyPressed(Keyboard::Right))
+	{
+		player->rotate(3);
+	}
+	if (Keyboard::isKeyPressed(Keyboard::Up))
+	{
+		player->thrust(1);
+	}
+	if (Keyboard::isKeyPressed(Keyboard::LAlt))
+	{
+		if (delay == 0)
+		{
+			bulletList.push_back(new BlueBullet(player->position, player->rotation));
+			delay = 10;
+		}
+		delay--;
+	}
 
 	//checking collision before entitiy's update as explosion sprite texture was being rendered before setting the texture rect. 
 	for (auto aitr = asteroidList.begin(); aitr != asteroidList.end(); aitr++)
@@ -135,34 +159,43 @@ bool GameState::checkCollision(Entity * a, Entity * b)
 		(b->radius + a->radius)*(b->radius + a->radius);;
 }
 
-void GameState::handleInputs()
-{
-	player->rotate(0);
-	player->thrust(-0.2f);
-	if (Keyboard::isKeyPressed(Keyboard::Left))
-	{
-		player->rotate(-3);
-	}
-	if (Keyboard::isKeyPressed(Keyboard::Right))
-	{
-		player->rotate(3);
-	}
-	if (Keyboard::isKeyPressed(Keyboard::Up))
-	{
-		player->thrust(1);
-	}
-	if (Keyboard::isKeyPressed(Keyboard::LAlt))
-	{
-		if (delay == 0)
-		{
-			bulletList.push_back(new BlueBullet(player->position, player->rotation));
-			delay = 10;
-		}
-		delay--;
-	}
-}
+
 
 void GameState::onExit()
 {
 
+}
+
+void GameState::MouseButtonPressed(const Vector2f& mouseViewPosition)
+{
+}
+
+void GameState::MouseButtonReleased(const Vector2f& mouseViewPosition)
+{
+}
+
+void GameState::KeyPressed(const Keyboard::Key& code)
+{
+/*
+	if (code==Keyboard::Left)
+	{
+		player->rotate(-3);
+	}
+	if (code == Keyboard::Right)
+	{
+		player->rotate(3);
+	}
+	if (code == Keyboard::Up)
+	{
+		player->thrust(1);
+	}
+	if (code == Keyboard::LAlt)
+	{
+		bulletList.push_back(new BlueBullet(player->position, player->rotation));
+	}*/
+
+}
+
+void GameState::KeyReleased(const Keyboard::Key& code)
+{
 }

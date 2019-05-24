@@ -19,7 +19,9 @@ public:
 	void update();
 	void render();
 	void event();
-
+	Vector2i mouseScreenPosition;
+	Vector2i mouseWindowPosition;
+	Vector2f mouseViewPosition;
 private:
 	RenderWindow m_Window;
 	Event m_Event;

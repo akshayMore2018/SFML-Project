@@ -14,8 +14,13 @@ public:
 	void render();
 	bool checkCollision(Entity * a, Entity * b);
 	void onExit();
+	void MouseButtonPressed(const Vector2f& mouseViewPosition);
+	void MouseButtonReleased(const Vector2f& mouseViewPosition);
+	void KeyPressed(const Keyboard::Key& code);
+	void KeyReleased(const Keyboard::Key& code);
+
+
 private:
-	void handleInputs();
 	Player* player = nullptr;
 	std::vector<Bullet*> bulletList;
 	std::vector<Asteroid*> asteroidList;

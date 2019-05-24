@@ -2,7 +2,9 @@
 
 MenuState::MenuState(RenderWindow* m_Window)
 {
+	this->stateName = "MenuState";
 	this->m_Window = m_Window;
+
 	//title
 	TextureManager::getInstance()->loadFont("title","Assets/fonts/batmfa__.ttf");
 	TextureManager::getInstance()->loadTexture("menuBG", "Assets/menu.png");
@@ -27,9 +29,7 @@ MenuState::~MenuState()
 
 void MenuState::update()
 {
-	this->updateMousePosition();
-	this->handleInputs();
-	this->button->update(this->mouseViewPosition);
+	this->button->update();
 }
 
 void MenuState::render()
@@ -39,14 +39,33 @@ void MenuState::render()
 	button->render(this->m_Window);
 }
 
-void MenuState::handleInputs()
+
+void MenuState::onExit()
 {
-	if(this->button->isPressed())
+
+}
+
+void MenuState::MouseButtonPressed(const Vector2f& mouseViewPosition)
+{
+	if (this->button->containsVector(mouseViewPosition))
 	{
+		this->button->buttonPressed();
+	}
+}
+
+void MenuState::MouseButtonReleased(const Vector2f& mouseViewPosition)
+{
+	if (this->button->containsVector(mouseViewPosition))
+	{
+		this->button->buttonReleased();
 		setExit(true);
 	}
 }
 
-void MenuState::onExit()
+void MenuState::KeyPressed(const Keyboard::Key& code)
+{
+}
+
+void MenuState::KeyReleased(const Keyboard::Key& code)
 {
 }

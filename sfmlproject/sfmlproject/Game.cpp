@@ -18,6 +18,11 @@ Game::~Game()
 
 void Game::update()
 {
+	this->mouseScreenPosition = Mouse::getPosition();
+	this->mouseWindowPosition = Mouse::getPosition(m_Window);
+	this->mouseViewPosition = m_Window.mapPixelToCoords(Mouse::getPosition(m_Window));
+
+
 	if (!this->states.empty())
 	{
 		this->states.top()->update();
@@ -44,18 +49,34 @@ void Game::render()
 
 void Game::event()
 {
+	if (this->states.empty())
+		return;
+
 	while (m_Window.pollEvent(m_Event))
 	{
 		switch (m_Event.type)
 		{
 		case Event::Closed:
 			m_Window.close();
-			if (!this->states.empty())
+			for (int i = 0; i < states.size(); i++)
 			{
 				delete this->states.top();
 				this->states.pop();
 			}
 			break;
+		case Event::MouseButtonPressed:
+			this->states.top()->MouseButtonPressed(mouseViewPosition);
+			break;
+		case Event::MouseButtonReleased:
+			this->states.top()->MouseButtonReleased(mouseViewPosition);
+			break;
+		case Event::KeyPressed:
+			this->states.top()->KeyPressed(m_Event.key.code);
+			break;
+		case Event::KeyReleased:
+			this->states.top()->KeyReleased(m_Event.key.code);
+			break;
+
 		}
 	}
 }

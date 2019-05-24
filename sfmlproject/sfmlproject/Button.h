@@ -1,7 +1,7 @@
 #pragma once
 #include "SFML/Graphics.hpp"
 using namespace sf;
-enum button_states{IDLE=0,HOVER,PRESSED};
+enum button_states{IDLE=0,PRESSED};
 
 class Button
 {
@@ -9,9 +9,12 @@ public:
 	Button(const std::string& ID, const std::string& text, float x, float y);
 	~Button();
 
-	void update(const Vector2f mousePosition);
+	void update();
 	void render(RenderTarget* target);
-	inline const bool isPressed()const;
+	void buttonPressed();
+	void buttonReleased();
+	bool containsVector(const Vector2f& mousePosition);
+
 private:
 	short unsigned int buttonState;
 	const Font* font;
@@ -19,9 +22,3 @@ private:
 	RectangleShape rect;
 };
 
-inline const bool Button::isPressed() const
-{
-	if (this->buttonState == PRESSED)
-		return true;
-	return false;
-}
