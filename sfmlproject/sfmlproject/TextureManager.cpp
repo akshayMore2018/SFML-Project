@@ -18,6 +18,10 @@ void TextureManager::loadTexture(const std::string& ID,const std::string & file)
 	{
 		std::cout << "Couldn't load file :" << file << std::endl;
 	}
+	else
+	{
+		std::cout << "loaded :" << file << std::endl;
+	}
 }
 
 void TextureManager::loadFont(const std::string & ID, const std::string & file)

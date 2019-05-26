@@ -2,6 +2,7 @@
 #include "SFML/Graphics.hpp"
 #include "TextureManager.h"
 #include <stack>
+class Screen;
 using namespace sf;
 class State
 {
@@ -19,10 +20,12 @@ public:
 	inline const bool& canExit()const;
 	virtual void onExit()=0;
 	void setExit(const bool& flag);
-	
+	void setScreen(Screen* screen);
 	std::stack<State*>* states;
 	Sprite bg;
 	std::string stateName;
+	Screen * currentrScreen;
+
 private:
 
 	bool exit;

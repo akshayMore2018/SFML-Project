@@ -25,4 +25,5 @@ private:
 	std::vector<Bullet*> bulletList;
 	std::vector<Asteroid*> asteroidList;
 	float delay;
+	Screen* pauseScreen;
 };

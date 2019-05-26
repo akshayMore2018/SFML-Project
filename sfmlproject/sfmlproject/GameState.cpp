@@ -4,20 +4,32 @@
 #include "BlueBullet.h"
 #include "RedBullet.h"
 #include "PinkBullet.h"
-
+#include "PauseScreen.h"
 
 GameState::GameState(RenderWindow* m_Window, std::stack<State*>* states)
 {
 	this->stateName = "GameState";
 	this->m_Window = m_Window;
 	this->states = states;
-	TextureManager::getInstance()->loadTexture("bg", "Assets/space.jpg");
-	TextureManager::getInstance()->loadTexture("ship", "Assets/player.png");
-	TextureManager::getInstance()->loadTexture("blueBullet", "Assets/bullets/blueFlame.png");
-	TextureManager::getInstance()->loadTexture("redBullet", "Assets/bullets/redFlame.png");
-	TextureManager::getInstance()->loadTexture("pinkBullet", "Assets/bullets/pinkFlame.png");
-	TextureManager::getInstance()->loadTexture("explosion", "Assets/type_A.png");
-	TextureManager::getInstance()->loadTexture("asteroid", "Assets/rock.png");
+
+	if (!TextureManager::getInstance()->textureMap.count("bg") == 1)//novice method of checking whether the texture is already loaded. 
+	{
+		std::cout << "loading textures...." << std::endl;
+		TextureManager::getInstance()->loadTexture("bg", "Assets/space.jpg");
+		TextureManager::getInstance()->loadTexture("ship", "Assets/player.png");
+		TextureManager::getInstance()->loadTexture("blueBullet", "Assets/bullets/blueFlame.png");
+		TextureManager::getInstance()->loadTexture("redBullet", "Assets/bullets/redFlame.png");
+		TextureManager::getInstance()->loadTexture("pinkBullet", "Assets/bullets/pinkFlame.png");
+		TextureManager::getInstance()->loadTexture("explosion", "Assets/type_A.png");
+		TextureManager::getInstance()->loadTexture("asteroid", "Assets/rock.png");
+		TextureManager::getInstance()->loadTexture("pauseWindow", "Assets/gui/pauseScreen/Window.png");
+		TextureManager::getInstance()->loadTexture("pauseHeader", "Assets/gui/pauseScreen/Header.png");
+	}
+	else
+	{
+		std::cout << "Textures already loaded" << std::endl;
+	}
+	
 	bg.setTexture(TextureManager::getInstance()->textureMap["bg"]);
 	player = new Player();
 
@@ -27,6 +39,9 @@ GameState::GameState(RenderWindow* m_Window, std::stack<State*>* states)
 		asteroidList.push_back(new Asteroid(rand() % 400, rand() % 400));
 	}
 	delay = 0;
+
+	pauseScreen = new PauseScreen();
+	
 }
 
 GameState::~GameState()
@@ -44,12 +59,17 @@ GameState::~GameState()
 		delete (*j);
 	}
 	bulletList.clear();
-
+	delete pauseScreen;
 }
 
 void GameState::update()
 {
-	
+	if (currentrScreen != nullptr)
+	{
+		currentrScreen->update();
+		return;
+	}
+
 	player->rotate(0);
 	player->thrust(-0.2f);
 	if (Keyboard::isKeyPressed(Keyboard::Left))
@@ -150,6 +170,9 @@ void GameState::render()
 	}
 
 	player->render(this->m_Window);
+
+	if (currentrScreen != nullptr)
+		currentrScreen->render(this->m_Window);
 }
 
 bool GameState::checkCollision(Entity * a, Entity * b)
@@ -176,10 +199,6 @@ void GameState::MouseButtonReleased(const Vector2f& mouseViewPosition)
 
 void GameState::KeyPressed(const Keyboard::Key& code)
 {
-	if (code == Keyboard::Escape)
-	{
-		setExit(true);
-	}
 
 /*
 	if (code==Keyboard::Left)
@@ -203,4 +222,13 @@ void GameState::KeyPressed(const Keyboard::Key& code)
 
 void GameState::KeyReleased(const Keyboard::Key& code)
 {
+	if (code == Keyboard::Escape)
+	{
+		setScreen(pauseScreen);
+	}
+
+	if (code == Keyboard::R)
+	{
+		setScreen(nullptr);
+	}
 }
