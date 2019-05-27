@@ -22,4 +22,5 @@ public:
 	Text text;
 	Button* resumeButton;
 	Button* closeButton;
+	Button* restartButton;
 };

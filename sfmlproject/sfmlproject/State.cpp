@@ -2,17 +2,12 @@
 #include "Screen.h"
 State::State()
 {
-	this->exit = false;
 }
 
 State::~State()
 {
 }
 
-void State::setExit(const bool& flag)
-{
-	this->exit = flag;
-}
 
 void State::setScreen(Screen * screen)
 {

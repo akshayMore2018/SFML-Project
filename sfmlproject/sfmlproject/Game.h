@@ -19,6 +19,7 @@ public:
 	void update();
 	void render();
 	void event();
+	void changeState(const std::string& stateName);
 	Vector2i mouseScreenPosition;
 	Vector2i mouseWindowPosition;
 	Vector2f mouseViewPosition;

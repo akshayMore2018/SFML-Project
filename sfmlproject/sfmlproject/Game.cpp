@@ -7,7 +7,7 @@ Game::Game(const std::string name, unsigned int height, unsigned int width)
 	m_Window.create(VideoMode(width, height), name);
 	m_Window.setFramerateLimit(60);
 	
-	this->states.push(new MenuState(&m_Window,&this->states));
+	this->states.push(new MenuState(&m_Window,this));
 }
 
 Game::~Game()
@@ -21,16 +21,9 @@ void Game::update()
 	this->mouseWindowPosition = Mouse::getPosition(m_Window);
 	this->mouseViewPosition = m_Window.mapPixelToCoords(Mouse::getPosition(m_Window));
 
-
 	if (!this->states.empty())
 	{
 		this->states.top()->update();
-
-		if (this->states.top()->canExit())
-		{
-			delete this->states.top();
-			this->states.pop();
-		}
 	}
 }
 
@@ -77,6 +70,29 @@ void Game::event()
 			break;
 
 		}
+	}
+}
+
+void Game::changeState(const std::string& stateName)
+{
+	if (!this->states.empty())
+	{
+		this->states.top()->onExit();
+		delete this->states.top();
+		this->states.pop();
+	}
+
+	if (stateName == "MenuState")
+	{
+		this->states.push(new MenuState(&m_Window, this));
+	}
+	else if (stateName=="GameState")
+	{
+		this->states.push(new GameState(&m_Window, this));
+	}
+	else if ("null")
+	{
+		m_Window.close();
 	}
 }
 

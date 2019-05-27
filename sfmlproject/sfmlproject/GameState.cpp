@@ -5,13 +5,12 @@
 #include "RedBullet.h"
 #include "PinkBullet.h"
 #include "PauseScreen.h"
-
-GameState::GameState(RenderWindow* m_Window, std::stack<State*>* states)
+#include "Game.h"
+GameState::GameState(RenderWindow* m_Window, Game* game)
 {
 	this->stateName = "GameState";
 	this->m_Window = m_Window;
-	this->states = states;
-
+	this->game = game;
 	if (!TextureManager::getInstance()->textureMap.count("bg") == 1)//novice method of checking whether the texture is already loaded. 
 	{
 		std::cout << "loading textures...." << std::endl;
@@ -28,6 +27,8 @@ GameState::GameState(RenderWindow* m_Window, std::stack<State*>* states)
 		TextureManager::getInstance()->loadTexture("playButtonSelected", "Assets/gui/pauseScreen/play2.png");
 		TextureManager::getInstance()->loadTexture("closeButton", "Assets/gui/pauseScreen/close.png");
 		TextureManager::getInstance()->loadTexture("closeButtonSelected", "Assets/gui/pauseScreen/close2.png");
+		TextureManager::getInstance()->loadTexture("restartButton", "Assets/gui/pauseScreen/restart.png");
+		TextureManager::getInstance()->loadTexture("restartButtonSelected", "Assets/gui/pauseScreen/restart2.png");
 
 	}
 	else

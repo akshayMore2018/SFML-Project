@@ -2,6 +2,7 @@
 #include "SFML/Graphics.hpp"
 #include "TextureManager.h"
 #include <stack>
+class Game;
 class Screen;
 using namespace sf;
 const float SCREEN_W =915;
@@ -20,23 +21,16 @@ public:
 	virtual void KeyPressed(const Keyboard::Key& code) = 0;
 	virtual void KeyReleased(const Keyboard::Key& code) = 0;
 
-	inline const bool& canExit()const;
 	virtual void onExit()=0;
-	void setExit(const bool& flag);
 	void setScreen(Screen* screen);
-	std::stack<State*>* states;
 	Sprite bg;
 	std::string stateName;
 	Screen * currentrScreen;
-private:
+	Game* game;
 
-	bool exit;
 protected:
 	RenderWindow* m_Window= nullptr;
 	Event* m_Event = nullptr;
+	
 };
 
-const bool & State::canExit() const
-{
-	return this->exit;
-}

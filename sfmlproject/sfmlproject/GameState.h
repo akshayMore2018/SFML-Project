@@ -4,10 +4,11 @@ class Entity;
 class Bullet;
 class Asteroid;
 class Player;
+class Game;
 class GameState :public State
 {
 public:
-	GameState(RenderWindow* m_Window, std::stack<State*>* states);
+	GameState(RenderWindow* m_Window, Game* game);
 	~GameState();
 
 	void update();

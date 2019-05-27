@@ -2,7 +2,7 @@
 #include "TextureManager.h"
 #include "Button.h"
 #include "State.h"
-
+#include "Game.h"
 PauseScreen::PauseScreen(State* state)
 {
 	this->name = "Pause";
@@ -19,10 +19,13 @@ PauseScreen::PauseScreen(State* state)
 	header.setPosition(panel.getPosition().x, panel.getGlobalBounds().top+40);
 	header.setScale(0.5f, 0.5f);
 
-	resumeButton = new Button("resume",panel.getGlobalBounds().left+120, SCREEN_H/2,100,100);
+	resumeButton = new Button("resume",panel.getGlobalBounds().left+110, SCREEN_H/2,100,100);
 	resumeButton->setTexture("playButton", "playButtonSelected");
 
-	closeButton = new Button("close", panel.getGlobalBounds().left + panel.getLocalBounds().width*0.5f-120, SCREEN_H / 2, 100, 100);
+	restartButton = new Button("restart", SCREEN_WIDTH/2, SCREEN_H / 2, 100, 100);
+	restartButton->setTexture("restartButton", "restartButtonSelected");
+
+	closeButton = new Button("close", panel.getGlobalBounds().left + panel.getLocalBounds().width*0.5f-110, SCREEN_H / 2, 100, 100);
 	closeButton->setTexture("closeButton", "closeButtonSelected");
 
 }
@@ -31,6 +34,7 @@ PauseScreen::~PauseScreen()
 {
 	delete resumeButton;
 	delete closeButton;
+	delete restartButton;
 }
 
 void PauseScreen::enter()
@@ -41,6 +45,7 @@ void PauseScreen::enter()
 void PauseScreen::update()
 {
 	this->resumeButton->update();
+	this->restartButton->update();
 	this->closeButton->update();
 }
 
@@ -50,6 +55,7 @@ void PauseScreen::render(RenderWindow* window)
 	window->draw(this->header);
 	this->resumeButton->render(window);
 	this->closeButton->render(window);
+	this->restartButton->render(window);
 
 }
 
@@ -64,6 +70,11 @@ void PauseScreen::MouseButtonPressed(const Vector2f & mouseViewPosition)
 	{
 		this->closeButton->buttonPressed();
 	}
+
+	if (this->restartButton->containsVector(mouseViewPosition))
+	{
+		this->restartButton->buttonPressed();
+	}
 }
 
 void PauseScreen::MouseButtonReleased(const Vector2f & mouseViewPosition)
@@ -74,11 +85,20 @@ void PauseScreen::MouseButtonReleased(const Vector2f & mouseViewPosition)
 		this->currentState->setScreen(nullptr);
 	}
 
+	if (this->restartButton->containsVector(mouseViewPosition))
+	{
+		this->restartButton->buttonPressed();
+		this->currentState->setScreen(nullptr);
+		this->currentState->game->changeState("GameState");
+		return;
+	}
+
 	if (this->closeButton->containsVector(mouseViewPosition))
 	{
 		this->closeButton->buttonReleased();
 		this->currentState->setScreen(nullptr);
-		this->currentState->setExit(true);
+		this->currentState->game->changeState("MenuState");
+		return;
 	}
 }
 

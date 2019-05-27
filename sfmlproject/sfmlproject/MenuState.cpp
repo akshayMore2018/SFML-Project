@@ -1,10 +1,11 @@
 #include "MenuState.h"
 #include "GameState.h"
-MenuState::MenuState(RenderWindow* m_Window, std::stack<State*>* states)
+#include "Game.h"
+MenuState::MenuState(RenderWindow* m_Window, Game* game)
 {
 	this->stateName = "MenuState";
 	this->m_Window = m_Window;
-	this->states = states;	
+	this->game = game;	
 	TextureManager::getInstance()->loadFont("title", "Assets/fonts/batmfa__.ttf");
 	TextureManager::getInstance()->loadTexture("menuBG", "Assets/gui/menu/menu.png");
 	TextureManager::getInstance()->loadTexture("startButton", "Assets/gui/menu/Start_BTN.png");
@@ -32,8 +33,6 @@ MenuState::~MenuState()
 	std::cout << "MenuState destructor" << std::endl;
 	delete startButton;
 	delete exitButton;
-
-	m_Window->close();
 }
 
 void MenuState::update()
@@ -73,26 +72,23 @@ void MenuState::MouseButtonPressed(const Vector2f& mouseViewPosition)
 
 void MenuState::MouseButtonReleased(const Vector2f& mouseViewPosition)
 {
-	if (this->startButton->containsVector(mouseViewPosition))
-	{
-		this->startButton->buttonReleased();
-		this->states->push(new GameState(this->m_Window, this->states));
-		
-	}
-
+	
 	if (this->exitButton->containsVector(mouseViewPosition))
 	{
 		this->exitButton->buttonReleased();
-		setExit(true);
+		this->game->changeState("null");
+	}
+
+	else if (this->startButton->containsVector(mouseViewPosition))
+	{
+		this->startButton->buttonReleased();
+		this->game->changeState("GameState");
 	}
 }
 
 void MenuState::KeyPressed(const Keyboard::Key& code)
 {
-	if (code == Keyboard::Escape)
-	{
-		setExit(true);
-	}
+	
 }
 
 void MenuState::KeyReleased(const Keyboard::Key& code)

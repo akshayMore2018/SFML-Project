@@ -1,10 +1,11 @@
 #pragma once
 #include "State.h"
 #include "Button.h"
+class Game;
 class MenuState : public State
 {
 public:
-	MenuState(RenderWindow* m_Window, std::stack<State*>* states);
+	MenuState(RenderWindow* m_Window, Game* game);
 	~MenuState();
 
 	void update();
