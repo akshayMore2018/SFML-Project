@@ -18,5 +18,6 @@ public:
 
 private:
 	Text text;
-	Button* button;
+	Button* startButton;
+	Button* exitButton;
 }; 

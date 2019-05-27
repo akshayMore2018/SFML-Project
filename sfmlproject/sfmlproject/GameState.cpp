@@ -24,6 +24,11 @@ GameState::GameState(RenderWindow* m_Window, std::stack<State*>* states)
 		TextureManager::getInstance()->loadTexture("asteroid", "Assets/rock.png");
 		TextureManager::getInstance()->loadTexture("pauseWindow", "Assets/gui/pauseScreen/Window.png");
 		TextureManager::getInstance()->loadTexture("pauseHeader", "Assets/gui/pauseScreen/Header.png");
+		TextureManager::getInstance()->loadTexture("playButton", "Assets/gui/pauseScreen/play.png");
+		TextureManager::getInstance()->loadTexture("playButtonSelected", "Assets/gui/pauseScreen/play2.png");
+		TextureManager::getInstance()->loadTexture("closeButton", "Assets/gui/pauseScreen/close.png");
+		TextureManager::getInstance()->loadTexture("closeButtonSelected", "Assets/gui/pauseScreen/close2.png");
+
 	}
 	else
 	{
@@ -31,8 +36,8 @@ GameState::GameState(RenderWindow* m_Window, std::stack<State*>* states)
 	}
 	
 	bg.setTexture(TextureManager::getInstance()->textureMap["bg"]);
-	player = new Player();
 
+	player = new Player();
 	float N = 5;
 	while (N--)
 	{
@@ -40,7 +45,8 @@ GameState::GameState(RenderWindow* m_Window, std::stack<State*>* states)
 	}
 	delay = 0;
 
-	pauseScreen = new PauseScreen();
+	
+	pauseScreen = new PauseScreen(this);
 	
 }
 
@@ -191,15 +197,30 @@ void GameState::onExit()
 
 void GameState::MouseButtonPressed(const Vector2f& mouseViewPosition)
 {
+	if (currentrScreen != nullptr)
+	{
+		currentrScreen->MouseButtonPressed(mouseViewPosition);
+		return;
+	}
 }
 
 void GameState::MouseButtonReleased(const Vector2f& mouseViewPosition)
 {
+	if (currentrScreen != nullptr)
+	{
+		currentrScreen->MouseButtonReleased(mouseViewPosition);
+		return;
+	}
 }
 
 void GameState::KeyPressed(const Keyboard::Key& code)
 {
+	if (currentrScreen != nullptr)
+	{
+		currentrScreen->KeyPressed(code);
 
+		return;
+	}
 /*
 	if (code==Keyboard::Left)
 	{
@@ -222,13 +243,15 @@ void GameState::KeyPressed(const Keyboard::Key& code)
 
 void GameState::KeyReleased(const Keyboard::Key& code)
 {
+	if (currentrScreen != nullptr)
+	{
+		currentrScreen->KeyReleased(code);
+
+		return;
+	}
+
 	if (code == Keyboard::Escape)
 	{
 		setScreen(pauseScreen);
-	}
-
-	if (code == Keyboard::R)
-	{
-		setScreen(nullptr);
 	}
 }

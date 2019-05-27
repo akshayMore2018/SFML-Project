@@ -4,6 +4,9 @@
 #include <stack>
 class Screen;
 using namespace sf;
+const float SCREEN_W =915;
+const float SCREEN_H=720;
+
 class State
 {
 public:
@@ -25,7 +28,6 @@ public:
 	Sprite bg;
 	std::string stateName;
 	Screen * currentrScreen;
-
 private:
 
 	bool exit;
