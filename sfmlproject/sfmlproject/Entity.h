@@ -3,6 +3,7 @@
 #include "Vec2.h"
 #include "TextureManager.h"
 #include "Animation.h"
+class Timer;
 using namespace sf;
 const static int SCREEN_WIDTH = 915;
 const static int SCREEN_HEIGHT = 720;
@@ -14,6 +15,7 @@ public:
 
 	virtual void update()=0;
 	virtual void render(RenderWindow* window)=0;
+	virtual void takeDamage(int damage);
 
 	Sprite sprite;
 	Texture *texture;
@@ -22,7 +24,14 @@ public:
 	float acceleration;
 	float speed;
 	float rotation;
-	bool remove;
 	float radius;
 	Animation animation;
+	bool remove;
+	int damage;
+	
+protected:
+	int maxHP;
+	int currentHP;
+	bool immune;
+	Timer* timer;
 };

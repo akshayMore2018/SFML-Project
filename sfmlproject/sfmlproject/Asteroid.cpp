@@ -16,6 +16,9 @@ Asteroid::Asteroid(float x , float y)
 	explosionAnim.sprite->setOrigin(25, 25);
 	explosionAnim.sprite->setPosition(x, y);
 	explosionAnim.sprite->setScale(2, 2);
+	maxHP = 20;
+	currentHP = maxHP;
+	damage = 5;
 }
 
 Asteroid::~Asteroid()

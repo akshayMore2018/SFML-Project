@@ -19,6 +19,7 @@ public:
 
 private:
 	Text text;
+	Sprite titlePanel;
 	Button* startButton;
 	Button* exitButton;
 }; 

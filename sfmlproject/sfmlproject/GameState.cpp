@@ -54,6 +54,7 @@ GameState::GameState(RenderWindow* m_Window, Game* game)
 GameState::~GameState()
 {
 	std::cout << "Gamestate destructor" << std::endl;
+	if(player)
 	delete player;
 	for (auto i = asteroidList.begin(); i != asteroidList.end();i++)
 	{
@@ -77,29 +78,33 @@ void GameState::update()
 		return;
 	}
 
-	player->rotate(0);
-	player->thrust(-0.2f);
-	if (Keyboard::isKeyPressed(Keyboard::Left))
+	if (player)
 	{
-		player->rotate(-3);
-	}
-	if (Keyboard::isKeyPressed(Keyboard::Right))
-	{
-		player->rotate(3);
-	}
-	if (Keyboard::isKeyPressed(Keyboard::Up))
-	{
-		player->thrust(1);
-	}
-	if (Keyboard::isKeyPressed(Keyboard::LAlt))
-	{
-		if (delay == 0)
+		player->rotate(0);
+		player->thrust(-0.2f);
+		if (Keyboard::isKeyPressed(Keyboard::Left))
 		{
-			bulletList.push_back(new BlueBullet(player->position, player->rotation));
-			delay = 10;
+			player->rotate(-3);
 		}
-		delay--;
+		if (Keyboard::isKeyPressed(Keyboard::Right))
+		{
+			player->rotate(3);
+		}
+		if (Keyboard::isKeyPressed(Keyboard::Up))
+		{
+			player->thrust(1);
+		}
+		if (Keyboard::isKeyPressed(Keyboard::LAlt))
+		{
+			if (delay == 0)
+			{
+				bulletList.push_back(new BlueBullet(player->position, player->rotation));
+				delay = 10;
+			}
+			delay--;
+		}
 	}
+	
 
 	//checking collision before entitiy's update as explosion sprite texture was being rendered before setting the texture rect. 
 	for (auto aitr = asteroidList.begin(); aitr != asteroidList.end(); aitr++)
@@ -112,6 +117,15 @@ void GameState::update()
 				(*bitr)->remove = true;
 			}
 		}
+
+		if (!player)
+			continue;
+
+		if (checkCollision(*aitr, player))
+		{
+			player->takeDamage((*aitr)->damage);	
+		}
+
 	}
 
 
@@ -152,7 +166,18 @@ void GameState::update()
 			}
 		}
 	}
-	player->update();
+	
+
+	if (player)
+	{
+		player->update();
+		if (player->remove && player->explosionAnim.isAnimComplete())
+		{
+			delete player;
+			player = nullptr;
+		}
+	}
+	
 }
 
 
@@ -176,7 +201,11 @@ void GameState::render()
 		}
 	}
 
-	player->render(this->m_Window);
+	if (player)
+	{
+		player->render(this->m_Window);
+	}
+	
 
 	if (currentrScreen != nullptr)
 		currentrScreen->render(this->m_Window);

@@ -35,6 +35,8 @@ void Button::setTexture(const std::string & texID, const std::string& activeTexI
 {
 	this->onValue = activeTexID;
 	this->offValue = texID;
+	TextureManager::getInstance()->textureMap[this->offValue].setSmooth(true);
+	TextureManager::getInstance()->textureMap[this->offValue].setSmooth(true);
 	this->rect.setTexture(&(TextureManager::getInstance()->textureMap[this->offValue]));
 }
 
