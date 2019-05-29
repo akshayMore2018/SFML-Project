@@ -9,7 +9,8 @@ public:
 	Animation(Sprite& sprite, float x, float y, float frameWidth, float frameHeight, float framecount,float animspeed , int animCycle);
 
 	void update();
-	
+	void reset();
+
 	bool isAnimComplete();
 private:
 	float x;
@@ -21,6 +22,7 @@ private:
 	float frames;
 	bool animComplete;
 	int animCycle;
+	int totalCycles;
 public:
 	Sprite* sprite;
 };

@@ -13,10 +13,20 @@ Animation::Animation(Sprite& sprite, float x, float y, float frameWidth, float f
 	frameCount(framecount),
 	animSpeed(animspeed),
 	animCycle(animCycle),
-	frames(0)
+	frames(0),
+	totalCycles(animCycle)
 {
 
 }
+
+void Animation::reset()
+{
+	frames = 0;
+	animComplete = false;
+	animCycle = totalCycles;
+}
+
+
 
 void Animation::update()
 {

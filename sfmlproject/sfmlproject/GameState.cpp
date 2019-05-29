@@ -181,8 +181,24 @@ void GameState::update()
 		player->update();
 		if (player->remove && player->explosionAnim.isAnimComplete())
 		{
-			delete player;
-			player = nullptr;
+			if (PlayerProfile::getInstance()->playerLives > 0)
+			{
+				PlayerProfile::getInstance()->playerLives--;
+				player->currentHP = player->maxHP;
+				PlayerProfile::getInstance()->playerHP=player->currentHP;
+				player->position.x = SCREEN_W / 2;
+				player->position.y = SCREEN_H / 2;
+				player->remove = false;
+				player->explosionAnim.reset();
+				hud->updatePlayerHP();
+				hud->updatePlayerLives();
+			}
+			else
+			{
+				delete player;
+				player = nullptr;
+			}
+			
 		}
 	}
 	

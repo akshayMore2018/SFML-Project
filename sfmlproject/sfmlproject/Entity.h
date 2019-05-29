@@ -28,10 +28,9 @@ public:
 	Animation animation;
 	bool remove;
 	int damage;
-	
-protected:
 	int maxHP;
 	int currentHP;
 	bool immune;
+protected:
 	Timer* timer;
 };

@@ -17,7 +17,8 @@ public:
 
 private:
 	RenderWindow* m_Window;
-	Text scoreStr;
+	Text lifeStr;
 	Text hpStr;
+	Text scoreStr;
 	std::stringstream ss;
 };
