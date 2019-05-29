@@ -1,7 +1,7 @@
 #include "Player.h"
 #include <iostream>
 #include "Timer.h"
-
+#include "PlayerProfile.h"
 Player::Player()
 {
 	texture = &(TextureManager::getInstance()->textureMap["ship"]);
@@ -27,7 +27,9 @@ Player::Player()
 	damage = 0;
 	immune = false;
 	timer = new Timer(0.3);
-	
+	PlayerProfile::getInstance()->playerLives = 3;
+	PlayerProfile::getInstance()->playerHP = currentHP;
+	PlayerProfile::getInstance()->playerScore = 0;
 }
 
 Player::~Player()
@@ -124,8 +126,9 @@ void Player::takeDamage(int damage)
 		immune = true;
 		timer->activate();
 		this->sprite.setColor(Color::Red);
+		PlayerProfile::getInstance()->playerHP = currentHP;
 	}
-	else
+	if(currentHP<=0)
 	{
 		this->remove = true;
 	}

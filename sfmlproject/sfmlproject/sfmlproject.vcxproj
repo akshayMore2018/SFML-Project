@@ -133,11 +133,13 @@
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameState.cpp" />
+    <ClCompile Include="HUD.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MenuState.cpp" />
     <ClCompile Include="PauseScreen.cpp" />
     <ClCompile Include="PinkBullet.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerProfile.cpp" />
     <ClCompile Include="RedBullet.cpp" />
     <ClCompile Include="Screen.cpp" />
     <ClCompile Include="State.cpp" />
@@ -154,10 +156,12 @@
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameState.h" />
+    <ClInclude Include="HUD.h" />
     <ClInclude Include="MenuState.h" />
     <ClInclude Include="PauseScreen.h" />
     <ClInclude Include="PinkBullet.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerProfile.h" />
     <ClInclude Include="RedBullet.h" />
     <ClInclude Include="Screen.h" />
     <ClInclude Include="State.h" />

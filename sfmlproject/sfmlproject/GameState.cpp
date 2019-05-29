@@ -6,6 +6,7 @@
 #include "PinkBullet.h"
 #include "PauseScreen.h"
 #include "Game.h"
+#include "HUD.h"
 GameState::GameState(RenderWindow* m_Window, Game* game)
 {
 	this->stateName = "GameState";
@@ -48,6 +49,7 @@ GameState::GameState(RenderWindow* m_Window, Game* game)
 
 	
 	pauseScreen = new PauseScreen(this);
+	hud = new HUD(this->m_Window);
 	
 }
 
@@ -68,6 +70,7 @@ GameState::~GameState()
 	}
 	bulletList.clear();
 	delete pauseScreen;
+	delete hud;
 }
 
 void GameState::update()
@@ -77,6 +80,8 @@ void GameState::update()
 		currentrScreen->update();
 		return;
 	}
+
+	hud->update();
 
 	if (player)
 	{
@@ -115,15 +120,18 @@ void GameState::update()
 			{
 				(*aitr)->remove = true;
 				(*bitr)->remove = true;
+				PlayerProfile::getInstance()->playerScore++;
+				hud->updateScore();
 			}
 		}
 
 		if (!player)
 			continue;
 
-		if (checkCollision(*aitr, player))
+		if (checkCollision(*aitr, player) && !((*aitr)->remove))
 		{
 			player->takeDamage((*aitr)->damage);	
+			hud->updatePlayerHP();
 		}
 
 	}
@@ -206,7 +214,7 @@ void GameState::render()
 		player->render(this->m_Window);
 	}
 	
-
+	hud->render();
 	if (currentrScreen != nullptr)
 		currentrScreen->render(this->m_Window);
 }

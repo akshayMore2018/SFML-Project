@@ -5,6 +5,7 @@ class Bullet;
 class Asteroid;
 class Player;
 class Game;
+class HUD;
 class GameState :public State
 {
 public:
@@ -27,4 +28,5 @@ private:
 	std::vector<Asteroid*> asteroidList;
 	float delay;
 	Screen* pauseScreen;
+	HUD* hud;
 };
