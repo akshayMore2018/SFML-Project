@@ -1,5 +1,6 @@
 #pragma once
 #include "Screen.h"
+#include <sstream>
 class Button;
 
 class PauseScreen : public Screen
@@ -19,7 +20,9 @@ public:
 
 	Sprite panel;
 	Sprite header;
+	Sprite score;
 	Text text;
+	std::stringstream ss;
 	Button* resumeButton;
 	Button* closeButton;
 	Button* restartButton;

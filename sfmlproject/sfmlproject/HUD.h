@@ -2,6 +2,7 @@
 #include "SFML/Graphics.hpp"
 #include "PlayerProfile.h"
 #include <sstream>
+class Timer;
 using namespace sf;
 class HUD
 {
@@ -10,7 +11,7 @@ public:
 	~HUD();
 
 	void update();
-	void updateScore();
+	void updateTimer();
 	void updatePlayerHP();
 	void updatePlayerLives();
 	void render();
@@ -19,6 +20,9 @@ private:
 	RenderWindow* m_Window;
 	Text lifeStr;
 	Text hpStr;
-	Text scoreStr;
+	Text timeStr;
 	std::stringstream ss;
+	Timer* timer;
+	int duration;
+	Sprite clock;
 };

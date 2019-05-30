@@ -30,6 +30,8 @@ GameState::GameState(RenderWindow* m_Window, Game* game)
 		TextureManager::getInstance()->loadTexture("closeButtonSelected", "Assets/gui/pauseScreen/close2.png");
 		TextureManager::getInstance()->loadTexture("restartButton", "Assets/gui/pauseScreen/restart.png");
 		TextureManager::getInstance()->loadTexture("restartButtonSelected", "Assets/gui/pauseScreen/restart2.png");
+		TextureManager::getInstance()->loadTexture("scoreImg", "Assets/gui/pauseScreen/score.png");
+		TextureManager::getInstance()->loadTexture("clock", "Assets/gui/hud/Clock_Icon.png");
 
 	}
 	else
@@ -121,7 +123,6 @@ void GameState::update()
 				(*aitr)->remove = true;
 				(*bitr)->remove = true;
 				PlayerProfile::getInstance()->playerScore++;
-				hud->updateScore();
 			}
 		}
 

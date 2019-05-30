@@ -3,12 +3,15 @@
 #include "Button.h"
 #include "State.h"
 #include "Game.h"
+#include "PlayerProfile.h"
 PauseScreen::PauseScreen(State* state)
 {
 	this->name = "Pause";
 	this->currentState = state;
 	panel.setTexture(TextureManager::getInstance()->textureMap["pauseWindow"]);
 	header.setTexture(TextureManager::getInstance()->textureMap["pauseHeader"]);
+	TextureManager::getInstance()->textureMap["scoreImg"].setSmooth(true);
+	score.setTexture(TextureManager::getInstance()->textureMap["scoreImg"]);
 	Vector2u panelSize = TextureManager::getInstance()->textureMap["pauseWindow"].getSize();
 	panel.setOrigin(panelSize.x / 2, panelSize.y / 2);
 	panel.setPosition(SCREEN_W/2,SCREEN_H/2);
@@ -19,13 +22,27 @@ PauseScreen::PauseScreen(State* state)
 	header.setPosition(panel.getPosition().x, panel.getGlobalBounds().top+40);
 	header.setScale(0.5f, 0.5f);
 
-	resumeButton = new Button("resume",panel.getGlobalBounds().left+110, SCREEN_H/2,100,100);
+	Vector2u scoreSize = TextureManager::getInstance()->textureMap["scoreImg"].getSize();
+	score.setOrigin(scoreSize.x / 2, scoreSize.y / 2);
+	score.setPosition(panel.getPosition().x, panel.getGlobalBounds().top + 150);
+	score.setScale(0.55f, 0.55f);
+
+	text.setFont(TextureManager::getInstance()->fontMap["title"]);
+	ss.str("");
+	ss << PlayerProfile::getInstance()->playerScore;
+	this->text.setString(ss.str());
+	FloatRect textRect = this->text.getLocalBounds();
+	this->text.setOrigin(textRect.left + textRect.width / 2, textRect.top + textRect.height / 2);
+	text.setCharacterSize(32);
+	text.setPosition(score.getPosition().x, score.getPosition().y+40);
+
+	resumeButton = new Button("resume",panel.getGlobalBounds().left+110, SCREEN_H/2+ 70,100,100);
 	resumeButton->setTexture("playButton", "playButtonSelected");
 
-	restartButton = new Button("restart", SCREEN_WIDTH/2, SCREEN_H / 2, 100, 100);
+	restartButton = new Button("restart", SCREEN_WIDTH/2, SCREEN_H / 2 + 70, 100, 100);
 	restartButton->setTexture("restartButton", "restartButtonSelected");
 
-	closeButton = new Button("close", panel.getGlobalBounds().left + panel.getLocalBounds().width*0.5f-110, SCREEN_H / 2, 100, 100);
+	closeButton = new Button("close", panel.getGlobalBounds().left + panel.getLocalBounds().width*0.5f-110, SCREEN_H / 2 + 70, 100, 100);
 	closeButton->setTexture("closeButton", "closeButtonSelected");
 
 }
@@ -40,6 +57,9 @@ PauseScreen::~PauseScreen()
 void PauseScreen::enter()
 {
 	std::cout << "Pause Screen Entered" << std::endl;
+	ss.str("");
+	ss << PlayerProfile::getInstance()->playerScore;
+	this->text.setString(ss.str());
 }
 
 void PauseScreen::update()
@@ -53,6 +73,8 @@ void PauseScreen::render(RenderWindow* window)
 {
 	window->draw(this->panel);
 	window->draw(this->header);
+	window->draw(this->score);
+	window->draw(this->text);
 	this->resumeButton->render(window);
 	this->closeButton->render(window);
 	this->restartButton->render(window);
