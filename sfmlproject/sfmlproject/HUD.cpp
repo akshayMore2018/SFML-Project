@@ -4,16 +4,12 @@
 HUD::HUD(RenderWindow * window)
 {
 	this->m_Window = window;
-	this->lifeStr.setFont(TextureManager::getInstance()->fontMap["title"]);
-	this->lifeStr.setPosition(30, 680);
-	this->lifeStr.setCharacterSize(20);
-	
 	this->hpStr.setFont(TextureManager::getInstance()->fontMap["title"]);
 	this->hpStr.setPosition(30, 20);
 	this->hpStr.setCharacterSize(20);
 
 	this->timeStr.setFont(TextureManager::getInstance()->fontMap["title"]);
-	this->timeStr.setPosition(810, 20);
+	this->timeStr.setPosition(830, 20);
 	this->timeStr.setCharacterSize(20);
 
 	TextureManager::getInstance()->textureMap["clock"].setSmooth(true);
@@ -22,11 +18,18 @@ HUD::HUD(RenderWindow * window)
 	this->clock.setPosition(this->timeStr.getPosition().x-20, this->timeStr.getPosition().y+13);
 	this->clock.setScale(0.6, 0.6);
 	updatePlayerHP();
-	updatePlayerLives();
+	
 	duration = 120;
 	timer = new Timer(duration);
 	timer->activate();
 	updateTimer();
+
+	TextureManager::getInstance()->textureMap["life"].setSmooth(true);
+	TextureManager::getInstance()->textureMap["life"].setRepeated(true);
+	lives.setTexture(TextureManager::getInstance()->textureMap["life"]);
+	lives.setPosition(10, 680);
+	updatePlayerLives();
+
 }
 
 HUD::~HUD()
@@ -79,15 +82,14 @@ void HUD::updatePlayerHP()
 
 void HUD::updatePlayerLives()
 {
-	ss.str("");
-	ss << PlayerProfile::getInstance()->playerLives;
-	this->lifeStr.setString("Lives: " + ss.str());
+	lives.setTextureRect(IntRect(0, 0, 43 * PlayerProfile::getInstance()->playerLives, 36));
 }
 
 void HUD::render()
 {
-	this->m_Window->draw(this->lifeStr);
 	this->m_Window->draw(this->hpStr);
 	this->m_Window->draw(this->timeStr);
 	this->m_Window->draw(this->clock);
+	this->m_Window->draw(this->lives);
+	
 }

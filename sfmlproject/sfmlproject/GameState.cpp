@@ -32,6 +32,8 @@ GameState::GameState(RenderWindow* m_Window, Game* game)
 		TextureManager::getInstance()->loadTexture("restartButtonSelected", "Assets/gui/pauseScreen/restart2.png");
 		TextureManager::getInstance()->loadTexture("scoreImg", "Assets/gui/pauseScreen/score.png");
 		TextureManager::getInstance()->loadTexture("clock", "Assets/gui/hud/Clock_Icon.png");
+		TextureManager::getInstance()->loadTexture("life", "Assets/gui/hud/life.png");
+
 
 	}
 	else
