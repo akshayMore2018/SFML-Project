@@ -1,9 +1,12 @@
 #include "HUD.h"
 #include "TextureManager.h"
 #include "Timer.h"
-HUD::HUD(RenderWindow * window)
+#include "GameState.h"
+
+
+HUD::HUD(GameState* state)
 {
-	this->m_Window = window;
+	this->currentState = state;
 	this->timeStr.setFont(TextureManager::getInstance()->fontMap["title"]);
 	this->timeStr.setPosition(845, 10);
 	this->timeStr.setCharacterSize(18);
@@ -15,10 +18,9 @@ HUD::HUD(RenderWindow * window)
 	this->clock.setScale(0.6, 0.6);
 	updatePlayerHP();
 	
-	duration = 120;
+	duration = 60;
 	timer = new Timer(duration);
 	timer->activate();
-	updateTimer();
 
 	TextureManager::getInstance()->textureMap["life"].setSmooth(true);
 	TextureManager::getInstance()->textureMap["life"].setRepeated(true);
@@ -37,7 +39,6 @@ HUD::HUD(RenderWindow * window)
 	hpFill.setScale(0.5f, 0.5f);
 	hpFill.setPosition(4, 4);
 	hpFill.setTextureRect(IntRect(0,0,11*PlayerProfile::getInstance()->playerHP,58));
-
 }
 
 HUD::~HUD()
@@ -47,14 +48,31 @@ HUD::~HUD()
 
 void HUD::update()
 {
-	if (timer->update())
+	if (updateTimer())
 	{
-		timer->deactivate();
+		this->currentState->setGameOverScreen();
 	}
-	updateTimer();
+	else if (PlayerProfile::getInstance()->playerScore >= 5)
+	{
+		//todo: level clear screen if all asteroids destroyed
+		this->currentState->setGameOverScreen();
+	}
+
 }
 
-void HUD::updateTimer()
+bool HUD::updateTimer()
+{
+	if (timer->update())
+	{
+		updateTimeString();
+		timer->deactivate();
+		return true;
+	}
+	updateTimeString();
+	return false;
+}
+
+void HUD::updateTimeString()
 {
 	ss.str("");
 	int time = duration-(timer->getTimeElapsed()/1000);
@@ -76,9 +94,7 @@ void HUD::updateTimer()
 	{
 		ss << ":0" << sec;
 	}
-	this->timeStr.setString(ss.str());
-	
-	
+	this->timeStr.setString(ss.str());	
 }
 
 void HUD::updatePlayerHP()
@@ -91,12 +107,12 @@ void HUD::updatePlayerLives()
 	lives.setTextureRect(IntRect(0, 0, 43 * PlayerProfile::getInstance()->playerLives, 36));
 }
 
-void HUD::render()
+void HUD::render(RenderTarget* target)
 {
-	this->m_Window->draw(this->hpBar);
-	this->m_Window->draw(this->hpFill);
-	this->m_Window->draw(this->timeStr);
-	this->m_Window->draw(this->clock);
-	this->m_Window->draw(this->lives);
+	target->draw(this->hpBar);
+	target->draw(this->hpFill);
+	target->draw(this->timeStr);
+	target->draw(this->clock);
+	target->draw(this->lives);
 	
 }

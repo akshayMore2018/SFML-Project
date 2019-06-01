@@ -20,7 +20,7 @@ public:
 	void MouseButtonReleased(const Vector2f& mouseViewPosition);
 	void KeyPressed(const Keyboard::Key& code);
 	void KeyReleased(const Keyboard::Key& code);
-
+	void setGameOverScreen();
 
 private:
 	Player* player = nullptr;
@@ -28,5 +28,6 @@ private:
 	std::vector<Asteroid*> asteroidList;
 	float delay;
 	Screen* pauseScreen;
+	Screen* gameOver;
 	HUD* hud;
 };

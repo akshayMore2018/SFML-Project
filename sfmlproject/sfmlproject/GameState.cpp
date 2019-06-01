@@ -5,6 +5,7 @@
 #include "RedBullet.h"
 #include "PinkBullet.h"
 #include "PauseScreen.h"
+#include "GameOverScreen.h"
 #include "Game.h"
 #include "HUD.h"
 GameState::GameState(RenderWindow* m_Window, Game* game)
@@ -22,7 +23,7 @@ GameState::GameState(RenderWindow* m_Window, Game* game)
 		TextureManager::getInstance()->loadTexture("pinkBullet", "Assets/bullets/pinkFlame.png");
 		TextureManager::getInstance()->loadTexture("explosion", "Assets/type_A.png");
 		TextureManager::getInstance()->loadTexture("asteroid", "Assets/rock.png");
-		TextureManager::getInstance()->loadTexture("pauseWindow", "Assets/gui/pauseScreen/Window.png");
+		TextureManager::getInstance()->loadTexture("window", "Assets/gui/pauseScreen/Window.png");
 		TextureManager::getInstance()->loadTexture("pauseHeader", "Assets/gui/pauseScreen/Header.png");
 		TextureManager::getInstance()->loadTexture("playButton", "Assets/gui/pauseScreen/play.png");
 		TextureManager::getInstance()->loadTexture("playButtonSelected", "Assets/gui/pauseScreen/play2.png");
@@ -35,10 +36,7 @@ GameState::GameState(RenderWindow* m_Window, Game* game)
 		TextureManager::getInstance()->loadTexture("life", "Assets/gui/hud/life.png");
 		TextureManager::getInstance()->loadTexture("hp", "Assets/gui/hud/hpBar.png");
 		TextureManager::getInstance()->loadTexture("hpFill", "Assets/gui/hud/Health_Dot.png");
-		
-
-
-
+		TextureManager::getInstance()->loadTexture("gameOverHeader", "Assets/gui/gameOverScreen/Header.png");
 	}
 	else
 	{
@@ -57,7 +55,8 @@ GameState::GameState(RenderWindow* m_Window, Game* game)
 
 	
 	pauseScreen = new PauseScreen(this);
-	hud = new HUD(this->m_Window);
+	gameOver = new GameOverScreen(this);
+	hud = new HUD(this);
 	
 }
 
@@ -78,6 +77,7 @@ GameState::~GameState()
 	}
 	bulletList.clear();
 	delete pauseScreen;
+	delete gameOver;
 	delete hud;
 }
 
@@ -204,6 +204,7 @@ void GameState::update()
 			{
 				delete player;
 				player = nullptr;
+				this->setScreen(this->gameOver);
 			}
 			
 		}
@@ -237,7 +238,7 @@ void GameState::render()
 		player->render(this->m_Window);
 	}
 	
-	hud->render();
+	hud->render(m_Window);
 	if (currentrScreen != nullptr)
 		currentrScreen->render(this->m_Window);
 }
@@ -315,4 +316,9 @@ void GameState::KeyReleased(const Keyboard::Key& code)
 	{
 		setScreen(pauseScreen);
 	}
+}
+
+void GameState::setGameOverScreen()
+{
+	this->setScreen(this->gameOver);
 }

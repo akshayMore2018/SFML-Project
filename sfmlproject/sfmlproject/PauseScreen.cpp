@@ -8,11 +8,11 @@ PauseScreen::PauseScreen(State* state)
 {
 	this->name = "Pause";
 	this->currentState = state;
-	panel.setTexture(TextureManager::getInstance()->textureMap["pauseWindow"]);
+	panel.setTexture(TextureManager::getInstance()->textureMap["window"]);
 	header.setTexture(TextureManager::getInstance()->textureMap["pauseHeader"]);
 	TextureManager::getInstance()->textureMap["scoreImg"].setSmooth(true);
 	score.setTexture(TextureManager::getInstance()->textureMap["scoreImg"]);
-	Vector2u panelSize = TextureManager::getInstance()->textureMap["pauseWindow"].getSize();
+	Vector2u panelSize = TextureManager::getInstance()->textureMap["window"].getSize();
 	panel.setOrigin(panelSize.x / 2, panelSize.y / 2);
 	panel.setPosition(SCREEN_W/2,SCREEN_H/2);
 	panel.setScale(0.5f, 0.5f);
@@ -36,13 +36,13 @@ PauseScreen::PauseScreen(State* state)
 	text.setCharacterSize(32);
 	text.setPosition(score.getPosition().x, score.getPosition().y+40);
 
-	resumeButton = new Button("resume",panel.getGlobalBounds().left+110, SCREEN_H/2+ 70,100,100);
+	resumeButton = new Button("resume",panel.getGlobalBounds().left+110, SCREEN_HEIGHT/2+ 70,100,100);
 	resumeButton->setTexture("playButton", "playButtonSelected");
 
-	restartButton = new Button("restart", SCREEN_WIDTH/2, SCREEN_H / 2 + 70, 100, 100);
+	restartButton = new Button("restart", SCREEN_WIDTH/2, SCREEN_HEIGHT / 2 + 70, 100, 100);
 	restartButton->setTexture("restartButton", "restartButtonSelected");
 
-	closeButton = new Button("close", panel.getGlobalBounds().left + panel.getLocalBounds().width*0.5f-110, SCREEN_H / 2 + 70, 100, 100);
+	closeButton = new Button("close", panel.getGlobalBounds().left + panel.getLocalBounds().width*0.5f-110, SCREEN_HEIGHT / 2 + 70, 100, 100);
 	closeButton->setTexture("closeButton", "closeButtonSelected");
 
 }

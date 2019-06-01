@@ -3,21 +3,20 @@
 #include "PlayerProfile.h"
 #include <sstream>
 class Timer;
+class GameState;
+class Screen;
 using namespace sf;
 class HUD
 {
 public:
-	HUD(RenderWindow* window);
+	HUD(GameState* state);
 	~HUD();
-
 	void update();
-	void updateTimer();
 	void updatePlayerHP();
 	void updatePlayerLives();
-	void render();
+	void render(RenderTarget* target);
 
 private:
-	RenderWindow* m_Window;
 	Text timeStr;
 	std::stringstream ss;
 	Timer* timer;
@@ -26,4 +25,7 @@ private:
 	Sprite lives;
 	Sprite hpBar;
 	Sprite hpFill;
+	GameState* currentState;
+	bool updateTimer();
+	void updateTimeString();
 };

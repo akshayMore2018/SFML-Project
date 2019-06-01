@@ -27,7 +27,7 @@ Player::Player()
 	damage = 0;
 	immune = false;
 	timer = new Timer(0.3);
-	PlayerProfile::getInstance()->playerLives = 3;
+	PlayerProfile::getInstance()->playerLives = 2;
 	PlayerProfile::getInstance()->playerHP = currentHP;
 	PlayerProfile::getInstance()->playerScore = 0;
 }
