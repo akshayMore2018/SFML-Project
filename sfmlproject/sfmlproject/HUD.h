@@ -18,11 +18,12 @@ public:
 
 private:
 	RenderWindow* m_Window;
-	Text hpStr;
 	Text timeStr;
 	std::stringstream ss;
 	Timer* timer;
 	int duration;
 	Sprite clock;
 	Sprite lives;
+	Sprite hpBar;
+	Sprite hpFill;
 };
