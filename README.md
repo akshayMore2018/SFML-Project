@@ -1,10 +1,10 @@
 # SFML-Project
 Creating a simple game using sfml
 
-![output](https://github.com/akshayMore2018/SFML-Project/tree/master/output/menu.png)
+![output](https://github.com/akshayMore2018/SFML-Project/blob/master/output/menu.PNG)
 
-![output](https://github.com/akshayMore2018/SFML-Project/tree/master/output/game.png)
+![output](https://github.com/akshayMore2018/SFML-Project/blob/master/output/game.PNG)
 
-![output](https://github.com/akshayMore2018/SFML-Project/tree/master/output/pause.png)
+![output](https://github.com/akshayMore2018/SFML-Project/blob/master/output/pause.PNG)
 
-![output](https://github.com/akshayMore2018/SFML-Project/tree/master/output/timeout.png)
+![output](https://github.com/akshayMore2018/SFML-Project/blob/master/output/timeout.PNG)
