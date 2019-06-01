@@ -315,6 +315,7 @@ void GameState::KeyReleased(const Keyboard::Key& code)
 	if (code == Keyboard::Escape)
 	{
 		setScreen(pauseScreen);
+		hud->pauseTimer();
 	}
 }
 

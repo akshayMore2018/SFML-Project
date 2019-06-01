@@ -107,6 +107,11 @@ void HUD::updatePlayerLives()
 	lives.setTextureRect(IntRect(0, 0, 43 * PlayerProfile::getInstance()->playerLives, 36));
 }
 
+void HUD::pauseTimer()
+{
+	this->timer->pause();
+}
+
 void HUD::render(RenderTarget* target)
 {
 	target->draw(this->hpBar);

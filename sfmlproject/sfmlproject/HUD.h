@@ -14,6 +14,7 @@ public:
 	void update();
 	void updatePlayerHP();
 	void updatePlayerLives();
+	void pauseTimer();
 	void render(RenderTarget* target);
 
 private:
