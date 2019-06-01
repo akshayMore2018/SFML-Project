@@ -1,6 +1,10 @@
 # SFML-Project
 Creating a simple game using sfml
 
-![output](MenuState.png)
+![output](output/menu.png)
 
-![output](GameState.png)
+![output](output/game.png)
+
+![output](output/pause.png)
+
+![output](output/timeout.png)
