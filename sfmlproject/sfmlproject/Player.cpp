@@ -2,6 +2,7 @@
 #include <iostream>
 #include "Timer.h"
 #include "PlayerProfile.h"
+#include "AudioManager.h"
 Player::Player()
 {
 	texture = &(TextureManager::getInstance()->textureMap["ship"]);
@@ -30,6 +31,7 @@ Player::Player()
 	PlayerProfile::getInstance()->playerLives = 2;
 	PlayerProfile::getInstance()->playerHP = currentHP;
 	PlayerProfile::getInstance()->playerScore = 0;
+	this->sound.setBuffer(AudioManager::getInstance()->soundBuffer["pewpew"]);
 }
 
 Player::~Player()
@@ -133,6 +135,11 @@ void Player::takeDamage(int damage)
 		this->remove = true;
 	}
 		
+}
+
+void Player::playPewPewSound()
+{
+	this->sound.play();
 }
 
 void Player::rotate(float angle)

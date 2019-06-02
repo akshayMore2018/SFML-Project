@@ -1,6 +1,7 @@
 #include "MenuState.h"
 #include "GameState.h"
 #include "Game.h"
+#include "AudioManager.h"
 MenuState::MenuState(RenderWindow* m_Window, Game* game)
 {
 	this->stateName = "MenuState";
@@ -19,7 +20,15 @@ MenuState::MenuState(RenderWindow* m_Window, Game* game)
 	{
 		std::cout << "Menu assets already loaded" << std::endl;
 	}
-		
+	if (!AudioManager::getInstance()->soundBuffer.count("buttonPress") == 1)
+	{
+		std::cout << "loading sounds...." << std::endl;
+		AudioManager::getInstance()->loadSound("buttonPress", "Assets/sounds/buttonClick.wav");
+	}
+	else
+	{
+		std::cout << "Sounds already loaded" << std::endl;
+	}
 	
 	bg.setTexture(TextureManager::getInstance()->textureMap["menuBG"]);
 	TextureManager::getInstance()->textureMap["titlePanel"].setSmooth(true);

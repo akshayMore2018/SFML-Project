@@ -1,6 +1,6 @@
 #include "Button.h"
 #include "TextureManager.h"
-
+#include "AudioManager.h"
 Button::Button(const std::string & ID,float x, float y,float width , float height)
 {
 	this->ID = ID;
@@ -9,6 +9,7 @@ Button::Button(const std::string & ID,float x, float y,float width , float heigh
 	this->rect.setOrigin(this->rect.getSize().x / 2, this->rect.getSize().y / 2);
 	this->rect.setPosition(x, y);
 	this->buttonState = IDLE;
+	this->sound.setBuffer(AudioManager::getInstance()->soundBuffer["buttonPress"]);
 }
 
 
@@ -56,10 +57,16 @@ void Button::buttonPressed()
 {
 	this->buttonState = PRESSED;
 	this->rect.setTexture(&(TextureManager::getInstance()->textureMap[this->onValue]));
+	this->sound.play();
 }
 
 void Button::buttonReleased()
 {
+	while (this->sound.getStatus() == this->sound.Playing)
+	{
+		//noob way of delaying the program flow till sound finishes playing.
+		//able to do this because sound plays on separate thread.
+	}
 	this->buttonState = IDLE;
 	this->rect.setTexture(&(TextureManager::getInstance()->textureMap[this->offValue]));
 	

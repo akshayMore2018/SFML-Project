@@ -1,5 +1,5 @@
 #include "Asteroid.h"
-
+#include "AudioManager.h"
 Asteroid::Asteroid(float x , float y)
 {
 	sprite.setTexture(TextureManager::getInstance()->textureMap["asteroid"]);
@@ -19,6 +19,8 @@ Asteroid::Asteroid(float x , float y)
 	maxHP = 20;
 	currentHP = maxHP;
 	damage = 5;
+	this->sound.setBuffer(AudioManager::getInstance()->soundBuffer["blast"]);
+	this->ignoreCollision = false;
 }
 
 Asteroid::~Asteroid()
@@ -29,10 +31,14 @@ Asteroid::~Asteroid()
 void Asteroid::update()
 {
 
-	if(remove)
+	if(this->ignoreCollision)
 	{
 		explosionAnim.sprite->setPosition(position.x, position.y);
 		explosionAnim.update();
+		if (explosionAnim.isAnimComplete() && this->sound.getStatus() == this->sound.Stopped)
+		{
+			this->remove = true;
+		}
 	}
 	else
 	{
@@ -63,13 +69,20 @@ void Asteroid::update()
 
 void Asteroid::render(RenderWindow * window)
 {
-	if (!remove)
+	if (!this->ignoreCollision)
 	{
 		window->draw(this->sprite);
 	}
 	else
 	{
+		if(!this->explosionAnim.isAnimComplete())
 		window->draw(*(this->explosionAnim.sprite));
 	}
 
+}
+
+void Asteroid::kill()
+{
+	this->sound.play();
+	this->ignoreCollision = true;
 }

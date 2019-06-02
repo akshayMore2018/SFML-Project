@@ -101,6 +101,9 @@ void PauseScreen::MouseButtonPressed(const Vector2f & mouseViewPosition)
 
 void PauseScreen::MouseButtonReleased(const Vector2f & mouseViewPosition)
 {
+	this->resumeButton->buttonReleased();
+	this->restartButton->buttonReleased();
+	this->closeButton->buttonReleased();
 	if (this->resumeButton->containsVector(mouseViewPosition))
 	{
 		this->currentState->setScreen(nullptr);
@@ -121,9 +124,7 @@ void PauseScreen::MouseButtonReleased(const Vector2f & mouseViewPosition)
 		this->currentState->game->changeState("MenuState");
 		return;
 	}
-	this->resumeButton->buttonReleased();
-	this->restartButton->buttonReleased();
-	this->closeButton->buttonReleased();
+	
 }
 
 void PauseScreen::KeyPressed(const Keyboard::Key & code)

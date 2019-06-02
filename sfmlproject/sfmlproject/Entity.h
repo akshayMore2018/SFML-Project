@@ -1,5 +1,6 @@
 #pragma once
 #include "SFML/Graphics.hpp"
+#include "SFML/Audio.hpp"
 #include "Vec2.h"
 #include "TextureManager.h"
 #include "Animation.h"
@@ -31,6 +32,9 @@ public:
 	int maxHP;
 	int currentHP;
 	bool immune;
+	bool ignoreCollision;
 protected:
 	Timer* timer;
+	Sound sound;
+	
 };

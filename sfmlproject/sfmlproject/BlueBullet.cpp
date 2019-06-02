@@ -1,5 +1,4 @@
 #include "BlueBullet.h"
-
 BlueBullet::BlueBullet(Vec2 pos, float rot)
 {
 	sprite.setTexture(TextureManager::getInstance()->textureMap["blueBullet"]);

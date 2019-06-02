@@ -68,6 +68,8 @@ void GameOverScreen::MouseButtonPressed(const Vector2f & mouseViewPosition)
 
 void GameOverScreen::MouseButtonReleased(const Vector2f & mouseViewPosition)
 {
+	this->restartButton->buttonReleased();
+	this->closeButton->buttonReleased();
 	if (this->restartButton->containsVector(mouseViewPosition))
 	{
 
@@ -83,8 +85,7 @@ void GameOverScreen::MouseButtonReleased(const Vector2f & mouseViewPosition)
 		this->currentState->game->changeState("MenuState");
 		return;
 	}
-	this->restartButton->buttonReleased();
-	this->closeButton->buttonReleased();
+	
 }
 
 void GameOverScreen::KeyPressed(const Keyboard::Key & code)

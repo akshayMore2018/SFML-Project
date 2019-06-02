@@ -1,5 +1,6 @@
 #pragma once
 #include "SFML/Graphics.hpp"
+#include "SFML/Audio.hpp"
 using namespace sf;
 enum button_states{IDLE=0,PRESSED};
 
@@ -27,5 +28,6 @@ private:
 	bool textPresent;
 	std::string offValue, onValue;
 	std::string ID;
+	Sound sound;
 };
 

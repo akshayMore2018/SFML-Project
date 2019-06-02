@@ -8,6 +8,7 @@
 #include "GameOverScreen.h"
 #include "Game.h"
 #include "HUD.h"
+#include "AudioManager.h"
 GameState::GameState(RenderWindow* m_Window, Game* game)
 {
 	this->stateName = "GameState";
@@ -43,6 +44,17 @@ GameState::GameState(RenderWindow* m_Window, Game* game)
 		std::cout << "Textures already loaded" << std::endl;
 	}
 	
+	if (!AudioManager::getInstance()->soundBuffer.count("pewpew") == 1)
+	{
+		std::cout << "loading sounds...." << std::endl;
+		AudioManager::getInstance()->loadSound("pewpew", "Assets/sounds/pewpew.wav");
+		AudioManager::getInstance()->loadSound("blast", "Assets/sounds/blast.wav");
+	}
+	else
+	{
+		std::cout << "Sounds already loaded" << std::endl;
+	}
+
 	bg.setTexture(TextureManager::getInstance()->textureMap["bg"]);
 
 	player = new Player();
@@ -112,6 +124,7 @@ void GameState::update()
 			if (delay == 0)
 			{
 				bulletList.push_back(new BlueBullet(player->position, player->rotation));
+				player->playPewPewSound();
 				delay = 10;
 			}
 			delay--;
@@ -124,9 +137,9 @@ void GameState::update()
 	{
 		for (auto bitr = bulletList.begin(); bitr != bulletList.end(); bitr++)
 		{
-			if (checkCollision(*aitr, *bitr) && !((*aitr)->remove))
+			if (checkCollision(*aitr, *bitr) && !((*aitr)->ignoreCollision))
 			{
-				(*aitr)->remove = true;
+				(*aitr)->kill();
 				(*bitr)->remove = true;
 				PlayerProfile::getInstance()->playerScore++;
 			}
@@ -135,7 +148,7 @@ void GameState::update()
 		if (!player)
 			continue;
 
-		if (checkCollision(*aitr, player) && !((*aitr)->remove))
+		if (checkCollision(*aitr, player) && !((*aitr)->ignoreCollision))
 		{
 			player->takeDamage((*aitr)->damage);	
 			hud->updatePlayerHP();
@@ -169,7 +182,7 @@ void GameState::update()
 		for (auto i = asteroidList.begin(); i != asteroidList.end();)
 		{
 			(*i)->update();
-			if ((*i)->remove && (*i)->explosionAnim.isAnimComplete())
+			if ((*i)->remove)
 			{
 				delete (*i);
 				i = asteroidList.erase(i);

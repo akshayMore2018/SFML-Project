@@ -8,10 +8,11 @@ public:
 
 	void update();
 	void render(RenderWindow* window);
+	void kill();
+	
 private:
 	Vec2 velocity;
 	Sprite explosion;
 public:
 	Animation explosionAnim;
-
 };

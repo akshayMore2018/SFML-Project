@@ -13,6 +13,7 @@ public:
 	float angle;
 	Animation explosionAnim;
 	void takeDamage(int damage);
+	void playPewPewSound();
 private:
 	Sprite explosion;
 };
