@@ -50,10 +50,12 @@ void HUD::update()
 {
 	if (updateTimer())
 	{
+		PlayerProfile::getInstance()->playerState = PlayerProfile::LOST;
 		this->currentState->setGameOverScreen();
 	}
 	else if (PlayerProfile::getInstance()->playerScore >= 5)
 	{
+		PlayerProfile::getInstance()->playerState = PlayerProfile::WON;
 		//todo: level clear screen if all asteroids destroyed
 		this->currentState->setGameOverScreen();
 	}

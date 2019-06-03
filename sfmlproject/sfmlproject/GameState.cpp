@@ -60,6 +60,7 @@ GameState::GameState(RenderWindow* m_Window, Game* game)
 	bg.setTexture(TextureManager::getInstance()->textureMap["bg"]);
 
 	player = new Player();
+	
 	float N = 5;
 	while (N--)
 	{
@@ -71,8 +72,10 @@ GameState::GameState(RenderWindow* m_Window, Game* game)
 	pauseScreen = new PauseScreen(this);
 	gameOver = new GameOverScreen(this);
 	hud = new HUD(this);
+	
 	if (AudioManager::getInstance()->MusicMap["bg"].getStatus() != Music::Playing)
 	{
+		AudioManager::getInstance()->MusicMap["bg"].stop();
 		AudioManager::getInstance()->MusicMap["bg"].setVolume(25);
 		AudioManager::getInstance()->MusicMap["bg"].play();
 	}
@@ -102,6 +105,7 @@ GameState::~GameState()
 
 void GameState::update()
 {
+
 	if (currentrScreen != nullptr)
 	{
 		currentrScreen->update();
@@ -130,8 +134,8 @@ void GameState::update()
 		{
 			if (delay == 0)
 			{
-				bulletList.push_back(new BlueBullet(player->position, player->rotation));
-				player->playPewPewSound();
+
+				bulletList.push_back(player->playerWeapon());
 				delay = 10;
 			}
 			delay--;
@@ -224,6 +228,7 @@ void GameState::update()
 			{
 				delete player;
 				player = nullptr;
+				PlayerProfile::getInstance()->playerState = PlayerProfile::DIED;
 				this->setScreen(this->gameOver);
 			}
 			

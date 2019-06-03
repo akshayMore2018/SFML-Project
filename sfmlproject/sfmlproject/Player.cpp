@@ -3,6 +3,9 @@
 #include "Timer.h"
 #include "PlayerProfile.h"
 #include "AudioManager.h"
+#include "BlueBullet.h"
+#include "RedBullet.h"
+#include "PinkBullet.h"
 Player::Player()
 {
 	texture = &(TextureManager::getInstance()->textureMap["ship"]);
@@ -33,6 +36,8 @@ Player::Player()
 	PlayerProfile::getInstance()->playerScore = 0;
 	this->sound.setBuffer(AudioManager::getInstance()->soundBuffer["pewpew"]);
 	this->hurtSound.setBuffer(AudioManager::getInstance()->soundBuffer["ouch"]);
+	PlayerProfile::getInstance()->playerState = PlayerProfile::PLAYING;
+	PlayerProfile::getInstance()->currentPlayerWeapon = PlayerProfile::RED_FLAME;
 }
 
 Player::~Player()
@@ -144,9 +149,25 @@ void Player::takeDamage(int damage)
 		
 }
 
-void Player::playPewPewSound()
+Bullet* Player::playerWeapon()
 {
 	this->sound.play();
+	switch (PlayerProfile::getInstance()->currentPlayerWeapon)
+	{
+	case PlayerProfile::BLUE_FLAME:
+		return new BlueBullet(this->position, this->rotation);
+		break;
+	case PlayerProfile::RED_FLAME:
+		return new RedBullet(this->position, this->rotation);
+		break;
+	case PlayerProfile::PINK_FLAME:
+		return new PinkBullet(this->position, this->rotation);
+		break;
+	default:
+		return new BlueBullet(this->position, this->rotation);
+		break;
+	}
+	return nullptr;
 }
 
 void Player::rotate(float angle)

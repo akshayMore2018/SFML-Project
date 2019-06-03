@@ -3,6 +3,7 @@
 #include "Button.h"
 #include "State.h"
 #include "Game.h"
+#include "PlayerProfile.h"
 GameOverScreen::GameOverScreen(State* state)
 {
 	this->name = "GameOver";
@@ -15,13 +16,7 @@ GameOverScreen::GameOverScreen(State* state)
 	panel.setScale(0.5f, 0.5f);
 
 	text.setFont(TextureManager::getInstance()->fontMap["title"]);
-	this->text.setString("GAME OVER");
-	FloatRect textRect = this->text.getLocalBounds();
-	this->text.setOrigin(textRect.left + textRect.width / 2, textRect.top + textRect.height / 2);
-	text.setCharacterSize(32);
 	text.setPosition(panel.getPosition().x, panel.getGlobalBounds().top + 40);
-
-
 	restartButton = new Button("restart", panel.getGlobalBounds().left + 150, SCREEN_HEIGHT / 2 + 70, 100, 100);
 	restartButton->setTexture("restartButton", "restartButtonSelected");
 
@@ -37,6 +32,23 @@ GameOverScreen::~GameOverScreen()
 
 void GameOverScreen::enter()
 {
+	switch (PlayerProfile::getInstance()->playerState)
+	{
+	case PlayerProfile::LOST:
+		this->text.setString("TIME OUT");
+		break;
+	case PlayerProfile::WON:
+		this->text.setString("LEVEL CLEAR");
+		break;
+	case PlayerProfile::DIED:
+		this->text.setString("GAME OVER");
+		break;
+	default:
+		this->text.setString("PLAYING");
+	}
+	text.setCharacterSize(32);
+	FloatRect textRect = this->text.getLocalBounds();
+	this->text.setOrigin(textRect.left + textRect.width / 2, textRect.top + textRect.height / 2);
 }
 
 void GameOverScreen::update()

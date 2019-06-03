@@ -1,6 +1,6 @@
 #pragma once
 #include "Entity.h"
-
+class Bullet;
 class Player : public Entity
 {
 public:
@@ -13,7 +13,7 @@ public:
 	float angle;
 	Animation explosionAnim;
 	void takeDamage(int damage);
-	void playPewPewSound();
+	Bullet* playerWeapon();
 private:
 	Sprite explosion;
 	Sound hurtSound;
