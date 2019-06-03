@@ -16,4 +16,5 @@ public:
 	void playPewPewSound();
 private:
 	Sprite explosion;
+	Sound hurtSound;
 };

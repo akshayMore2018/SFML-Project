@@ -77,7 +77,7 @@ void Game::changeState(const std::string& stateName)
 {
 	if (!this->states.empty())
 	{
-		this->states.top()->onExit();
+		this->states.top()->onExit(stateName);
 		delete this->states.top();
 		this->states.pop();
 	}

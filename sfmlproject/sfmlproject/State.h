@@ -21,7 +21,7 @@ public:
 	virtual void KeyPressed(const Keyboard::Key& code) = 0;
 	virtual void KeyReleased(const Keyboard::Key& code) = 0;
 
-	virtual void onExit()=0;
+	virtual void onExit(const std::string& nextStateID)=0;
 	void setScreen(Screen* screen);
 	Sprite bg;
 	std::string stateName;

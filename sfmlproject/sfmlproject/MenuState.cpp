@@ -7,6 +7,7 @@ MenuState::MenuState(RenderWindow* m_Window, Game* game)
 	this->stateName = "MenuState";
 	this->m_Window = m_Window;
 	this->game = game;	
+
 	if (!TextureManager::getInstance()->textureMap.count("menuBG") == 1)
 	{
 		std::cout << "loading menu assets" << std::endl;
@@ -79,7 +80,7 @@ void MenuState::render()
 }
 
 
-void MenuState::onExit()
+void MenuState::onExit(const std::string& nextStateID)
 {
 
 }

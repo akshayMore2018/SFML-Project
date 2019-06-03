@@ -32,6 +32,7 @@ Player::Player()
 	PlayerProfile::getInstance()->playerHP = currentHP;
 	PlayerProfile::getInstance()->playerScore = 0;
 	this->sound.setBuffer(AudioManager::getInstance()->soundBuffer["pewpew"]);
+	this->hurtSound.setBuffer(AudioManager::getInstance()->soundBuffer["ouch"]);
 }
 
 Player::~Player()
@@ -121,6 +122,12 @@ void Player::takeDamage(int damage)
 {
 	if (this->immune)
 		return;
+
+	if (this->hurtSound.getStatus() != this->hurtSound.Playing)
+	{
+		hurtSound.play();
+	}
+		
 
 	if (currentHP > 0)
 	{

@@ -15,7 +15,7 @@ public:
 	void update();
 	void render();
 	bool checkCollision(Entity * a, Entity * b);
-	void onExit();
+	void onExit(const std::string& nextStateID);
 	void MouseButtonPressed(const Vector2f& mouseViewPosition);
 	void MouseButtonReleased(const Vector2f& mouseViewPosition);
 	void KeyPressed(const Keyboard::Key& code);

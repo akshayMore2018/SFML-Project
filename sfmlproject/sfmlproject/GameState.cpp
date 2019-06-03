@@ -49,6 +49,8 @@ GameState::GameState(RenderWindow* m_Window, Game* game)
 		std::cout << "loading sounds...." << std::endl;
 		AudioManager::getInstance()->loadSound("pewpew", "Assets/sounds/pewpew.wav");
 		AudioManager::getInstance()->loadSound("blast", "Assets/sounds/blast.wav");
+		AudioManager::getInstance()->loadSound("ouch", "Assets/sounds/ouch.wav");
+		AudioManager::getInstance()->loadMusic("bg", "Assets/music/erased.wav");
 	}
 	else
 	{
@@ -69,6 +71,11 @@ GameState::GameState(RenderWindow* m_Window, Game* game)
 	pauseScreen = new PauseScreen(this);
 	gameOver = new GameOverScreen(this);
 	hud = new HUD(this);
+	if (AudioManager::getInstance()->MusicMap["bg"].getStatus() != Music::Playing)
+	{
+		AudioManager::getInstance()->MusicMap["bg"].setVolume(25);
+		AudioManager::getInstance()->MusicMap["bg"].play();
+	}
 	
 }
 
@@ -265,9 +272,16 @@ bool GameState::checkCollision(Entity * a, Entity * b)
 
 
 
-void GameState::onExit()
+void GameState::onExit(const std::string& nextStateID)
 {
-
+	if (AudioManager::getInstance()->MusicMap["bg"].getStatus() == Music::Playing)
+	{
+		if (nextStateID == "MenuState")
+		{
+			AudioManager::getInstance()->MusicMap["bg"].stop();
+		}
+		
+	}
 }
 
 void GameState::MouseButtonPressed(const Vector2f& mouseViewPosition)
