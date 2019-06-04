@@ -8,6 +8,7 @@
 #include "PinkBullet.h"
 Player::Player()
 {
+	this->name = "Player";
 	texture = &(TextureManager::getInstance()->textureMap["ship"]);
 	texture->setSmooth(true);
 	sprite.setTexture(*texture);
@@ -37,7 +38,7 @@ Player::Player()
 	this->sound.setBuffer(AudioManager::getInstance()->soundBuffer["pewpew"]);
 	this->hurtSound.setBuffer(AudioManager::getInstance()->soundBuffer["ouch"]);
 	PlayerProfile::getInstance()->playerState = PlayerProfile::PLAYING;
-	PlayerProfile::getInstance()->currentPlayerWeapon = PlayerProfile::RED_FLAME;
+	PlayerProfile::getInstance()->currentPlayerWeapon = PlayerProfile::BLUE_FLAME;
 }
 
 Player::~Player()
@@ -168,6 +169,14 @@ Bullet* Player::playerWeapon()
 		break;
 	}
 	return nullptr;
+}
+
+void Player::onCollision(Entity * obj)
+{
+	if (obj->name == "Asteroid" || obj->name == "Meteor")
+	{
+		this->takeDamage(obj->damage);
+	}
 }
 
 void Player::rotate(float angle)

@@ -17,4 +17,12 @@ void Entity::takeDamage(int damage)
 	currentHP -= damage;
 }
 
+void Entity::kill()
+{
+}
+
+void Entity::onCollision(Entity * obj)
+{
+}
+
 

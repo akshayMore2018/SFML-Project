@@ -19,8 +19,8 @@ HUD::HUD(GameState* state)
 	updatePlayerHP();
 	
 	duration = 60;
-	timer = new Timer(duration);
-	timer->activate();
+	this->timer = new Timer(duration);
+	this->timer->activate();
 
 	TextureManager::getInstance()->textureMap["life"].setSmooth(true);
 	TextureManager::getInstance()->textureMap["life"].setRepeated(true);
@@ -39,15 +39,23 @@ HUD::HUD(GameState* state)
 	hpFill.setScale(0.5f, 0.5f);
 	hpFill.setPosition(4, 4);
 	hpFill.setTextureRect(IntRect(0,0,11*PlayerProfile::getInstance()->playerHP,58));
+	this->delay = new Timer(1.5);
 }
 
 HUD::~HUD()
 {
 	delete timer;
+	delete delay;
 }
 
 void HUD::update()
 {
+	if (delay->update())
+	{
+		this->currentState->setGameOverScreen();
+		this->delay->deactivate();
+	}
+
 	if (updateTimer())
 	{
 		PlayerProfile::getInstance()->playerState = PlayerProfile::LOST;
@@ -57,7 +65,11 @@ void HUD::update()
 	{
 		PlayerProfile::getInstance()->playerState = PlayerProfile::WON;
 		//todo: level clear screen if all asteroids destroyed
-		this->currentState->setGameOverScreen();
+		if (!this->delay->isActive())
+		{
+			this->delay->activate();
+		}
+		
 	}
 
 }

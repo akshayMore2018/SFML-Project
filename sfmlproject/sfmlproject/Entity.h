@@ -17,6 +17,8 @@ public:
 	virtual void update()=0;
 	virtual void render(RenderWindow* window)=0;
 	virtual void takeDamage(int damage);
+	virtual void kill();
+	virtual void onCollision(Entity* obj);
 
 	Sprite sprite;
 	Texture *texture;
@@ -33,8 +35,10 @@ public:
 	int currentHP;
 	bool immune;
 	bool ignoreCollision;
+	std::string name;
 protected:
 	Timer* timer;
 	Sound sound;
+	
 	
 };

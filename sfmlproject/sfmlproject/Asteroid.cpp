@@ -1,7 +1,9 @@
 #include "Asteroid.h"
 #include "AudioManager.h"
+#include "PlayerProfile.h"
 Asteroid::Asteroid(float x , float y)
 {
+	this->name = "Asteroid";
 	sprite.setTexture(TextureManager::getInstance()->textureMap["asteroid"]);
 	position = Vec2(x, y);
 	radius = 20;
@@ -85,4 +87,15 @@ void Asteroid::kill()
 {
 	this->sound.play();
 	this->ignoreCollision = true;
+}
+
+void Asteroid::onCollision(Entity * obj)
+{
+	if (obj->name == "Bullet")
+	{
+		this->kill();
+		obj->remove = true;
+		PlayerProfile::getInstance()->playerScore++;
+	}
+	
 }

@@ -55,3 +55,8 @@ void Timer::pause()
 	this->lastRecordedTime = this->timer;
 	paused = true;
 }
+
+const bool & Timer::isActive()
+{
+	return this->start;
+}

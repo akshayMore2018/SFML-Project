@@ -21,6 +21,7 @@ private:
 	Text timeStr;
 	std::stringstream ss;
 	Timer* timer;
+	Timer* delay;
 	int duration;
 	Sprite clock;
 	Sprite lives;
@@ -28,5 +29,5 @@ private:
 	Sprite hpFill;
 	GameState* currentState;
 	bool updateTimer();
-	void updateTimeString();
+	void updateTimeString(); 
 };

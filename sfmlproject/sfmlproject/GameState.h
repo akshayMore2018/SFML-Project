@@ -21,11 +21,13 @@ public:
 	void KeyPressed(const Keyboard::Key& code);
 	void KeyReleased(const Keyboard::Key& code);
 	void setGameOverScreen();
+	void spawnCollectibles(short unsigned int value, float x, float y);
 
 private:
 	Player* player = nullptr;
 	std::vector<Bullet*> bulletList;
 	std::vector<Asteroid*> asteroidList;
+	std::vector<Entity*> EntityList;
 	float delay;
 	Screen* pauseScreen;
 	Screen* gameOver;

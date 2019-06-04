@@ -2,7 +2,7 @@
 
 Bullet::Bullet()
 {
-	
+	this->name = "Bullet";
 }
 
 Bullet::~Bullet()

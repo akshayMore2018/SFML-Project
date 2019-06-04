@@ -29,4 +29,5 @@ public:
 	int playerScore;
 	short unsigned int playerState;
 	short unsigned int currentPlayerWeapon;
+
 };

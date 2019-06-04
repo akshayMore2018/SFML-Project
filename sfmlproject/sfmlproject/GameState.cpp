@@ -9,6 +9,8 @@
 #include "Game.h"
 #include "HUD.h"
 #include "AudioManager.h"
+#include "Quirk.h"
+#include "Meteor.h"
 GameState::GameState(RenderWindow* m_Window, Game* game)
 {
 	this->stateName = "GameState";
@@ -38,6 +40,8 @@ GameState::GameState(RenderWindow* m_Window, Game* game)
 		TextureManager::getInstance()->loadTexture("hp", "Assets/gui/hud/hpBar.png");
 		TextureManager::getInstance()->loadTexture("hpFill", "Assets/gui/hud/Health_Dot.png");
 		TextureManager::getInstance()->loadTexture("gameOverHeader", "Assets/gui/gameOverScreen/Header.png");
+		//TextureManager::getInstance()->loadTexture("bulletQuirk", "Assets/quirks/orbs.png");
+		TextureManager::getInstance()->loadTexture("meteor", "Assets/meteor.png");
 	}
 	else
 	{
@@ -64,7 +68,11 @@ GameState::GameState(RenderWindow* m_Window, Game* game)
 	float N = 5;
 	while (N--)
 	{
-		asteroidList.push_back(new Asteroid(rand() % 400, rand() % 400));
+		EntityList.push_back(new Asteroid(rand() % 400, rand() % 400));
+		if (N == 4 || N == 2)
+		{
+			EntityList.push_back(new Meteor(rand() % 400, rand() % 400));
+		}
 	}
 	delay = 0;
 
@@ -87,11 +95,11 @@ GameState::~GameState()
 	std::cout << "Gamestate destructor" << std::endl;
 	if(player)
 	delete player;
-	for (auto i = asteroidList.begin(); i != asteroidList.end();i++)
+	for (auto i = EntityList.begin(); i != EntityList.end();i++)
 	{
 		delete (*i);
 	}
-	asteroidList.clear();
+	EntityList.clear();
 
 	for (auto j = bulletList.begin(); j != bulletList.end(); j++)
 	{
@@ -144,25 +152,24 @@ void GameState::update()
 	
 
 	//checking collision before entitiy's update as explosion sprite texture was being rendered before setting the texture rect. 
-	for (auto aitr = asteroidList.begin(); aitr != asteroidList.end(); aitr++)
+	for (auto eitr = EntityList.begin(); eitr != EntityList.end(); eitr++)
 	{
 		for (auto bitr = bulletList.begin(); bitr != bulletList.end(); bitr++)
 		{
-			if (checkCollision(*aitr, *bitr) && !((*aitr)->ignoreCollision))
+			if (checkCollision(*eitr, *bitr) && !((*eitr)->ignoreCollision))
 			{
-				(*aitr)->kill();
-				(*bitr)->remove = true;
-				PlayerProfile::getInstance()->playerScore++;
+				(*eitr)->onCollision(*bitr);
 			}
 		}
 
 		if (!player)
 			continue;
 
-		if (checkCollision(*aitr, player) && !((*aitr)->ignoreCollision))
+		if (checkCollision(*eitr, player) && !((*eitr)->ignoreCollision))
 		{
-			player->takeDamage((*aitr)->damage);	
 			hud->updatePlayerHP();
+			(*eitr)->onCollision(player);
+			(player)->onCollision(*eitr);
 		}
 
 	}
@@ -188,16 +195,17 @@ void GameState::update()
 		}
 	}
 
-	if (asteroidList.size() != 0)
+	if (EntityList.size() != 0)
 	{
-		for (auto i = asteroidList.begin(); i != asteroidList.end();)
+		for (auto i = EntityList.begin(); i != EntityList.end();)
 		{
 			(*i)->update();
 			if ((*i)->remove)
 			{
+				if ((*i)->name == "Asteroid")
+					spawnCollectibles(Quirk::RED_LASER,(*i)->position.x, (*i)->position.y);
 				delete (*i);
-				i = asteroidList.erase(i);
-				std::cout << " asteroids left :" << asteroidList.size() << std::endl;
+				i = EntityList.erase(i);
 			}
 			else
 			{
@@ -250,9 +258,9 @@ void GameState::render()
 		}
 	}
 
-	if (asteroidList.size() != 0)
+	if (EntityList.size() != 0)
 	{
-		for (auto i = asteroidList.begin(); i != asteroidList.end(); i++)
+		for (auto i = EntityList.begin(); i != EntityList.end(); i++)
 		{
 				(*i)->render(this->m_Window);
 		}
@@ -272,7 +280,7 @@ bool GameState::checkCollision(Entity * a, Entity * b)
 {
 	return (b->position.x - a->position.x)*(b->position.x - a->position.x) +
 		(b->position.y - a->position.y)*(b->position.y - a->position.y) <
-		(b->radius + a->radius)*(b->radius + a->radius);;
+		(b->radius + a->radius)*(b->radius + a->radius);
 }
 
 
@@ -354,4 +362,25 @@ void GameState::KeyReleased(const Keyboard::Key& code)
 void GameState::setGameOverScreen()
 {
 	this->setScreen(this->gameOver);
+}
+
+void GameState::spawnCollectibles(short unsigned int  value, float x, float y)
+{
+	switch (value)
+	{
+	case Quirk::BLUE_LASER:
+		EntityList.push_back(new Quirk(Quirk::BLUE_LASER, x, y));
+		break;
+	case Quirk::RED_LASER:
+		EntityList.push_back(new Quirk(Quirk::RED_LASER, x, y));
+		break;
+	case Quirk::PINK_LASER:
+		EntityList.push_back(new Quirk(Quirk::PINK_LASER, x, y));
+		break;
+	case Quirk::LIFE:
+		EntityList.push_back(new Quirk(Quirk::LIFE, x, y));
+		break;
+	default:
+		break;
+	}
 }

@@ -11,6 +11,7 @@ public:
 	void deactivate();
 	const int& getTimeElapsed()const;
 	void pause();
+	const bool& isActive();
 
 private:
 	Clock clock;

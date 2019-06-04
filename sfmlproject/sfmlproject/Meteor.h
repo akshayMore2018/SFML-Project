@@ -1,19 +1,17 @@
 #pragma once
 #include "Entity.h"
-class Asteroid : public Entity
+class Meteor:public Entity
 {
 public:
-	Asteroid(float x, float y);
-	~Asteroid();
+	Meteor(float x, float y);
+	~Meteor();
 
 	void update();
 	void render(RenderWindow* window);
 	void kill();
 	void onCollision(Entity* obj);
+
 private:
 	Vec2 velocity;
-	Sprite explosion;
-public:
-	Animation explosionAnim;
 
 };

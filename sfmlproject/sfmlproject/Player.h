@@ -14,6 +14,7 @@ public:
 	Animation explosionAnim;
 	void takeDamage(int damage);
 	Bullet* playerWeapon();
+	void onCollision(Entity* obj);
 private:
 	Sprite explosion;
 	Sound hurtSound;
