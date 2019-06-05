@@ -108,6 +108,7 @@ void GameState::update()
 		return;
 	}
 
+	levelManager->update();
 	hud->update();
 
 	if (player)

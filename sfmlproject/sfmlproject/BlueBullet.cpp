@@ -12,7 +12,7 @@ BlueBullet::BlueBullet(Vec2 pos, float rot)
 	rotation = rot;
 	remove = false;
 	radius = 6;
-	damage = 2;
+	damage = 10;
 }
 
 BlueBullet::~BlueBullet()

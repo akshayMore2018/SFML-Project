@@ -2,6 +2,7 @@
 #include <iostream>
 #include "Asteroid.h"
 #include "Meteor.h"
+#include "PlayerProfile.h"
 LevelManager::LevelManager(std::vector<Entity*>* entitylist):entitylist(entitylist)
 {
 	
@@ -32,6 +33,15 @@ void LevelManager::setLevel(short unsigned int levelToSet)
 		spawnAsteroids(6);
 		spawnMeteors(3);
 		break;
+	}
+	
+}
+
+void LevelManager::update()
+{
+	if (this->entitylist->empty())
+	{
+		PlayerProfile::getInstance()->playerState = PlayerProfile::WON;
 	}
 }
 

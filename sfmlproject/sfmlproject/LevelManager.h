@@ -18,6 +18,7 @@ public:
 	
 	short unsigned int currentLevel;
 	void setLevel(short unsigned int levelToSet);
+	void update();
 private:
 	void spawnAsteroids(int count);
 	void spawnMeteors(int count);
