@@ -91,11 +91,25 @@ void Asteroid::kill()
 
 void Asteroid::onCollision(Entity * obj)
 {
-	if (obj->name == "Bullet")
+	if (obj->name == "PinkBullet" || obj->name == "BlueBullet" || obj->name == "RedBullet")
 	{
-		this->kill();
+		this->takeDamage(obj->damage);
 		obj->remove = true;
-		PlayerProfile::getInstance()->playerScore++;
 	}
 	
+}
+
+void Asteroid::takeDamage(int damage)
+{
+
+	if (currentHP > 0)
+	{
+		currentHP -= damage;
+		this->sprite.setColor(Color::Red);
+	}
+	if (currentHP <= 0)
+	{
+		this->kill();
+		PlayerProfile::getInstance()->playerScore++;
+	}
 }

@@ -136,6 +136,7 @@
     <ClCompile Include="GameOverScreen.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="HUD.cpp" />
+    <ClCompile Include="LevelManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MenuState.cpp" />
     <ClCompile Include="Meteor.cpp" />
@@ -163,6 +164,7 @@
     <ClInclude Include="GameOverScreen.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="HUD.h" />
+    <ClInclude Include="LevelManager.h" />
     <ClInclude Include="MenuState.h" />
     <ClInclude Include="Meteor.h" />
     <ClInclude Include="PauseScreen.h" />

@@ -18,7 +18,7 @@ HUD::HUD(GameState* state)
 	this->clock.setScale(0.6, 0.6);
 	updatePlayerHP();
 	
-	duration = 60;
+	duration = 120;
 	this->timer = new Timer(duration);
 	this->timer->activate();
 
@@ -61,7 +61,7 @@ void HUD::update()
 		PlayerProfile::getInstance()->playerState = PlayerProfile::LOST;
 		this->currentState->setGameOverScreen();
 	}
-	else if (PlayerProfile::getInstance()->playerScore >= 5)
+	else if (PlayerProfile::getInstance()->playerScore >= 7)//todo change the number
 	{
 		PlayerProfile::getInstance()->playerState = PlayerProfile::WON;
 		//todo: level clear screen if all asteroids destroyed

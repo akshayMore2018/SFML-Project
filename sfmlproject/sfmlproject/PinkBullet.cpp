@@ -2,6 +2,7 @@
 
 PinkBullet::PinkBullet(Vec2 pos, float rot)
 {
+	this->name = "PinkBullet";
 	sprite.setTexture(TextureManager::getInstance()->textureMap["pinkBullet"]);
 	animation = Animation(sprite, 512, 0, 512, 197, 3, 0.4f, -1);
 	animation.sprite->setOrigin(512 / 2, 197 / 2);
@@ -12,6 +13,7 @@ PinkBullet::PinkBullet(Vec2 pos, float rot)
 	rotation = rot;
 	remove = false;
 	radius = 6;
+	damage = 10;
 }
 
 PinkBullet::~PinkBullet()

@@ -2,6 +2,7 @@
 #include "GameState.h"
 #include "Game.h"
 #include "AudioManager.h"
+#include "PlayerProfile.h"
 MenuState::MenuState(RenderWindow* m_Window, Game* game)
 {
 	this->stateName = "MenuState";
@@ -82,7 +83,7 @@ void MenuState::render()
 
 void MenuState::onExit(const std::string& nextStateID)
 {
-
+	PlayerProfile::getInstance()->currentLevel = 0;
 }
 
 void MenuState::MouseButtonPressed(const Vector2f& mouseViewPosition)

@@ -10,8 +10,12 @@ public:
 	void render(RenderWindow* window);
 	void kill();
 	void onCollision(Entity* obj);
+	void takeDamage(int damage);
 
 private:
 	Vec2 velocity;
+	Sprite explosion;
+public:
+	Animation explosionAnim;
 
 };

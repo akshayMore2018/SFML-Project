@@ -11,6 +11,7 @@
 #include "AudioManager.h"
 #include "Quirk.h"
 #include "Meteor.h"
+#include "LevelManager.h"
 GameState::GameState(RenderWindow* m_Window, Game* game)
 {
 	this->stateName = "GameState";
@@ -64,18 +65,10 @@ GameState::GameState(RenderWindow* m_Window, Game* game)
 	bg.setTexture(TextureManager::getInstance()->textureMap["bg"]);
 
 	player = new Player();
-	
-	float N = 5;
-	while (N--)
-	{
-		EntityList.push_back(new Asteroid(rand() % 400, rand() % 400));
-		if (N == 4 || N == 2)
-		{
-			EntityList.push_back(new Meteor(rand() % 400, rand() % 400));
-		}
-	}
 	delay = 0;
-
+	
+	levelManager = new LevelManager(&(this->EntityList));
+	levelManager->setLevel(PlayerProfile::getInstance()->currentLevel++);
 	
 	pauseScreen = new PauseScreen(this);
 	gameOver = new GameOverScreen(this);
@@ -95,12 +88,7 @@ GameState::~GameState()
 	std::cout << "Gamestate destructor" << std::endl;
 	if(player)
 	delete player;
-	for (auto i = EntityList.begin(); i != EntityList.end();i++)
-	{
-		delete (*i);
-	}
-	EntityList.clear();
-
+	delete levelManager;
 	for (auto j = bulletList.begin(); j != bulletList.end(); j++)
 	{
 		delete (*j);
@@ -202,8 +190,8 @@ void GameState::update()
 			(*i)->update();
 			if ((*i)->remove)
 			{
-				if ((*i)->name == "Asteroid")
-					spawnCollectibles(Quirk::RED_LASER,(*i)->position.x, (*i)->position.y);
+				/*if ((*i)->name == "Asteroid")
+					spawnCollectibles(Quirk::PINK_LASER,(*i)->position.x, (*i)->position.y);*/
 				delete (*i);
 				i = EntityList.erase(i);
 			}

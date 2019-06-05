@@ -1,6 +1,7 @@
 #include "BlueBullet.h"
 BlueBullet::BlueBullet(Vec2 pos, float rot)
 {
+	this->name = "BlueBullet";
 	sprite.setTexture(TextureManager::getInstance()->textureMap["blueBullet"]);
 	animation = Animation(sprite, 512, 0, 512, 197, 3, 0.4f, -1);
 	animation.sprite->setOrigin(512 / 2, 197 / 2);
@@ -11,6 +12,7 @@ BlueBullet::BlueBullet(Vec2 pos, float rot)
 	rotation = rot;
 	remove = false;
 	radius = 6;
+	damage = 2;
 }
 
 BlueBullet::~BlueBullet()

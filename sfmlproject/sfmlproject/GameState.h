@@ -6,6 +6,7 @@ class Asteroid;
 class Player;
 class Game;
 class HUD;
+class LevelManager;
 class GameState :public State
 {
 public:
@@ -32,4 +33,5 @@ private:
 	Screen* pauseScreen;
 	Screen* gameOver;
 	HUD* hud;
+	LevelManager* levelManager;
 };
