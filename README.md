@@ -1,8 +1,8 @@
 # SFML-Project
 Creating a simple game using sfml
 
-Game Video Link:
-[output](https://www.youtube.com/watch?v=2bGFLyLDsCQ)
+
+[Game Video Link](https://www.youtube.com/watch?v=2bGFLyLDsCQ)
 
 
 ![output](https://github.com/akshayMore2018/SFML-Project/blob/master/output/menu.PNG)
